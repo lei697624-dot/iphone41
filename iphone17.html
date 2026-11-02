@@ -289,6 +289,16 @@ input[type=range]{width:100%;accent-color:var(--blue)}
  </div></div>
 </div></div>
 <script>
+/* track every AudioContext (incl. ElevenLabs SDK) so any tap can un-mute it */
+window.__ACS=[];(function(){const O=window.AudioContext||window.webkitAudioContext;if(!O)return;
+ function P(a){const c=a===undefined?new O():new O(a);window.__ACS.push(c);try{c.resume()}catch(e){}return c}
+ P.prototype=O.prototype;try{Object.setPrototypeOf(P,O)}catch(e){}
+ window.AudioContext=P;if(window.webkitAudioContext)window.webkitAudioContext=P})();
+function resumeAll(){(window.__ACS||[]).forEach(c=>{try{if(c.state!=='running'&&c.state!=='closed')c.resume()}catch(e){}})}
+function audioBlocked(){return (window.__ACS||[]).some(c=>c.state==='suspended')}
+['pointerdown','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,resumeAll,true));
+</script>
+<script>
 "use strict";
 const $=s=>document.querySelector(s);
 const S={lang:'ja',dark:false,wall:0,air:false,wifi:true,ssid:'Home-5G',bt:true,locked:true,app:null,batt:82,bright:70,truetone:true,lowpow:false,pct:true,silent:false,vol:60,r:{},noti:{line:true,msg:true,phone:true,ig:true,forum:false}};
@@ -613,8 +623,8 @@ V.phone=()=>{const r=S.r.phone;
   return `<div class="call" style="padding:0 18px"><div style="display:flex;align-items:center;gap:12px;margin-top:70px;align-self:stretch">${avatar(c.who,58)}<div style="flex:1"><div style="font-size:12px;opacity:.65">${c.line?(li()?'LINE 语音通话':'LINE 音声通話'):t('p_mobile')}</div><div style="font-size:24px;font-weight:600">${esc(nm)}</div><div class="calltime" style="font-size:15px;opacity:.75">${c.start?Math.floor(el/60)+':'+pad(el%60):t('p_calling')}</div></div>${c.speaking?`<div style="font-size:12px;opacity:.8">🔊</div>`:''}</div>
   <div id="ctx" style="align-self:stretch;flex:1;overflow-y:auto;margin:16px 0 10px;scrollbar-width:none">${lines||`<div style="opacity:.5;text-align:center;margin-top:40px;font-size:14px">${c.start?'':t('p_calling')}</div>`}${S.r.call.typing?`<div style="opacity:.6;font-size:14px">${li()?'对方正在说话…':'話しています…'}</div>`:''}</div>
   <div style="align-self:stretch;display:flex;gap:8px;align-items:center;margin-bottom:6px"><input data-keep="call" data-enter="callSay" placeholder="${li()?'输入或用键盘麦克风说话…':'入力、またはキーボードのマイクで話す…'}" style="flex:1;height:44px;border-radius:22px;border:0;background:rgba(255,255,255,.16);color:#fff;padding:0 16px;font-size:16px;outline:none" ${c.start?'':'disabled'}><div class="snd" style="width:44px;height:44px;border-radius:22px;background:#34c759;display:flex;align-items:center;justify-content:center;cursor:pointer" data-a="callSay">${G('up',22)}</div></div>
-  <div style="font-size:11.5px;opacity:.6;align-self:stretch;text-align:center">${c.real?(li()?'🎙 实时通话中：直接说话即可，也可以打字':'🎙 リアル通話中：そのまま話すか、文字で送れます'):(li()?'正在连接…（请允许麦克风）':'接続中…（マイクを許可してください）')}</div>
-  <div style="display:flex;gap:34px;align-items:center;margin:14px 0 46px"><div class="cbtn ${c.mute?'on':''}" data-a="callBtn" data-v="mute"><i style="width:62px;height:62px">${G(c.real?'mic':'spk',26)}</i>${c.real?(li()?'麦克风静音':'マイクOFF'):(li()?'静音':'消音')}</div><div class="endb" style="margin:0" data-a="hang">${G('phone',34,'color:#fff;transform:rotate(135deg)')}</div><div class="cbtn" data-a="callRepeat"><i style="width:62px;height:62px">${G('reset',26)}</i>${li()?'重播':'もう一度'}</div></div></div>`}
+  ${c.real&&audioBlocked()?`<div data-a="callSpk" style="align-self:stretch;margin-bottom:8px;padding:12px;border-radius:16px;background:#ff9f0a;color:#fff;font-weight:700;text-align:center;cursor:pointer">🔊 ${li()?'点这里开启声音':'ここをタップして音声をオン'}</div>`:''}<div style="font-size:11.5px;opacity:.6;align-self:stretch;text-align:center">${c.real?(li()?'🎙 实时通话中：直接说话即可，也可以打字':'🎙 リアル通話中：そのまま話すか、文字で送れます'):(li()?'正在连接…（请允许麦克风）':'接続中…（マイクを許可してください）')}</div>
+  <div style="display:flex;gap:34px;align-items:center;margin:14px 0 46px"><div class="cbtn ${c.mute?'on':''}" data-a="callBtn" data-v="mute"><i style="width:62px;height:62px">${G(c.real?'mic':'spk',26)}</i>${c.real?(li()?'麦克风静音':'マイクOFF'):(li()?'静音':'消音')}</div><div class="endb" style="margin:0" data-a="hang">${G('phone',34,'color:#fff;transform:rotate(135deg)')}</div>${c.real?`<div class="cbtn" data-a="callSpk"><i style="width:62px;height:62px">${G('spk',26)}</i>${li()?'没声音点这里':'音が出ない時'}</div>`:`<div class="cbtn" data-a="callRepeat"><i style="width:62px;height:62px">${G('reset',26)}</i>${li()?'重播':'もう一度'}</div>`}</div></div>`}
  if(r.call){S.sbw=true;const c=r.call,nm=c.who?pn(c.who):c.num;
   const el=c.start?Math.floor((Date.now()-c.start)/1000):0;
   return `<div class="call"><div style="margin-top:96px">${avatar(c.who||'x',96,c.who?nm:'#')}</div><div style="font-size:30px;font-weight:500;margin-top:14px">${esc(nm)}</div><div class="calltime" style="font-size:17px;opacity:.75;margin-top:6px">${c.start?Math.floor(el/60)+':'+pad(el%60):t('p_calling')}</div>
@@ -822,13 +832,14 @@ const A={
  phoneContact(v){S.r.phone.contact=v;nav()},phoneContactBack(){S.r.phone.contact=null;nav()},
  kp(v){if(S.r.phone.num.length<15)S.r.phone.num+=v;render()},kpdel(){S.r.phone.num=S.r.phone.num.slice(0,-1);render()},
  dial(){const n=S.r.phone.num;if(!n){const last=RECENTS.find(r=>r.ty==='out');if(last)S.r.phone.num=PEOPLE[last.who].tel.replace(/-/g,'');render();return}const who=Object.keys(PEOPLE).find(k=>PEOPLE[k].tel.replace(/-/g,'')===n);startCall(who,fmtNum(n))},
- lineCall(v){startCall(v,'',true)},
+ callSpk(){unlockAudio();resumeAll();const c=S.r.phone.call;if(c&&c.conv){try{c.conv.setVolume({volume:1})}catch(e){}}toast(li()?'已重新开启声音，如仍无声请关闭静音键':'音声を再開しました。無音の場合はマナーモードを解除');},
+ lineCall(v){unlockAudio();startCall(v,'',true)},
  callSay(){const c=S.r.phone.call;if(!c||!c.ai||!c.start)return;const i=$('#app input[data-keep="call"]');const v=i.value.trim();if(!v)return;i.value='';if(c.conv){c.chat.msgs.push({me:1,tx:v});render();try{c.conv.sendUserMessage(v)}catch(e){}return}try{speechSynthesis.cancel()}catch(e){}c.chat.msgs.push({me:1,tx:v});render();aiQueue(c.chat,'call')},
  callRepeat(){const c=S.r.phone.call;if(!c||!c.ai)return;if(c.conv){toast(li()?'实时通话中无法重播':'リアル通話中は再生できません');return}const m=[...c.chat.msgs].reverse().find(m=>!m.me);if(m)speak(String(x(m.tx)),c)},
  say(v){const c=LINE.chats.find(c=>c.id===S.r.line.chat);const m=c&&c.msgs[+v];if(m){ttsWarm();speak(String(x(m.tx)))}},
- callp(v){if(!v){toast(t('st_demo'));return}startCall(v,PEOPLE[v].tel)},
+ callp(v){if(!v){toast(t('st_demo'));return}if(v==='shiho')unlockAudio();startCall(v,PEOPLE[v].tel)},
  callBtn(v){const c=S.r.phone.call;if(v==='mute'&&c.conv){c.mute=!c.mute;try{c.conv.setMicMuted(c.mute)}catch(e){}render();return}if(v==='mute'&&!c.mute){try{speechSynthesis.cancel()}catch(e){}}if(v==='kp'||v==='add'||v==='ft'||v==='con'){toast(t('st_demo'));return}c[v]=!c[v];render()},
- hang(v){const c=S.r.phone.call;if(!c)return;if(c.conv&&v!==true){const cv=c.conv;c.conv=null;try{cv.endSession()}catch(e){}}try{speechSynthesis.cancel()}catch(e){}clearTimeout(c.tm);if(c.who)RECENTS.unshift({who:c.who,ty:'out',t:hm(),seen:1});S.r.phone.call=null;S.r.phone.num='';$('#island').classList.remove('wide');toast(t('p_ended'));if(c.from&&c.from!=='phone'){openApp(c.from)}else{S.r.phone.tab='rec';nav()}},
+ hang(v){const c=S.r.phone.call;if(!c)return;audioSession('auto');if(c.conv&&v!==true){const cv=c.conv;c.conv=null;try{cv.endSession()}catch(e){}}try{speechSynthesis.cancel()}catch(e){}clearTimeout(c.tm);if(c.who)RECENTS.unshift({who:c.who,ty:'out',t:hm(),seen:1});S.r.phone.call=null;S.r.phone.num='';$('#island').classList.remove('wide');toast(t('p_ended'));if(c.from&&c.from!=='phone'){openApp(c.from)}else{S.r.phone.tab='rec';nav()}},
  // safari
  sgo(v){if(v.startsWith('app:')){openApp(v.slice(4));return}const [p,...q]=v.split(':');sPush({p,q:p==='article'?+q.join(':'):q.join(':')})},
  sback(){const r=S.r.safari;if(r.i>0){r.i--;r.edit=false;nav()}},sfwd(){const r=S.r.safari;if(r.i<r.stack.length-1){r.i++;nav()}},
@@ -898,6 +909,11 @@ async function getSample(){return null}
 /* ---------- ElevenLabs ---------- */
 const EL_CALL='agent_2801m6dsw0k2fba8bre7q4jhy837',EL_CHAT='agent_4301m6dt6k4ne8fa6b4zzrpr4nhb',EL_TR='agent_3301m6dt6nc8ep8854w4e4c70jgp';
 let ELC=null;
+function audioSession(t){try{if(navigator.audioSession)navigator.audioSession.type=t}catch(e){}}
+let UNLOCK=null;
+function unlockAudio(){resumeAll();try{audioSession('play-and-record');const AC=window.AudioContext||window.webkitAudioContext;if(AC){UNLOCK=UNLOCK||new AC();UNLOCK.resume();const b=UNLOCK.createBuffer(1,1,22050),src=UNLOCK.createBufferSource();src.buffer=b;src.connect(UNLOCK.destination);src.start(0)}
+ const a=new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=');a.play().catch(()=>{})}catch(e){}}
+setTimeout(()=>{getEL().catch(()=>{})},500);
 async function getEL(){if(!ELC){const m=await import('https://cdn.jsdelivr.net/npm/@elevenlabs/client/+esm');ELC=m.Conversation}return ELC}
 async function elText(agentId,vars,text){
  const Conversation=await getEL();
@@ -934,7 +950,7 @@ async function realCall(c){
    onError:(e)=>{console.warn(e)}
   });
   if(S.r.phone.call!==c){try{conv.endSession()}catch(e){}return}
-  c.conv=conv;c.real=1;if(!c.start){c.start=Date.now()}render();
+  c.conv=conv;c.real=1;if(!c.start){c.start=Date.now()}try{conv.setVolume({volume:1})}catch(e){}audioSession('play-and-record');render();
  }catch(e){console.warn(e);if(S.r.phone.call!==c)return;
   toast(li()?'无法连接实时通话（请允许麦克风）':'リアル通話に接続できません（マイクを許可）');
   c.start=Date.now();const g=CALL_GREET[0];c.chat.msgs.push({me:0,tx:g[0],zh:g[1]});speak(g[0],c);render()}
@@ -1046,7 +1062,7 @@ function fit(){const s=Math.min((innerWidth-16)/430,(innerHeight-16)/902,1.15);S
 addEventListener('resize',fit);fit();
 
 /* ---------- clock tick ---------- */
-setInterval(()=>{drawSB();const lt=$('#lock .ltime');if(lt)lt.textContent=hm();const ct=$('#app .calltime');const c=S.r.phone.call;if(ct&&c&&c.start){const el=Math.floor((Date.now()-c.start)/1000);ct.textContent=Math.floor(el/60)+':'+pad(el%60)}},1000);
+setInterval(()=>{drawSB();{const c=S.r.phone.call;if(c&&c.real){const b=audioBlocked();if(b)resumeAll();if(b!==c.blk){c.blk=b;if(S.app==='phone')render()}}}const lt=$('#lock .ltime');if(lt)lt.textContent=hm();const ct=$('#app .calltime');const c=S.r.phone.call;if(ct&&c&&c.start){const el=Math.floor((Date.now()-c.start)/1000);ct.textContent=Math.floor(el/60)+':'+pad(el%60)}},1000);
 
 $('#wall').style.background=WALLS[S.wall];$('#lock').style.background=WALLS[S.wall];
 drawAll();
