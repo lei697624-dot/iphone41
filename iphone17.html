@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>iPhone 17</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:radial-gradient(ellipse at 50% 35%,#3b404c 0%,#15161b 75%);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Hiragino Sans","Hiragino Kaku Gothic ProN","PingFang SC","Noto Sans JP","Noto Sans SC","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;user-select:text;font:inherit}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#phone{position:relative;width:430px;height:902px;flex:none;border-radius:74px;padding:4px;
+ background:linear-gradient(135deg,#dfe0e4 0%,#a3a5ac 25%,#eceef0 50%,#94969d 78%,#d2d3d8 100%);
+ box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(0,0,0,.5),inset 0 0 2px rgba(255,255,255,.8)}
+#bezel{width:100%;height:100%;border-radius:70px;background:#050505;padding:10px}
+.hw{position:absolute;background:linear-gradient(90deg,#8d9097,#d4d6da,#8d9097);border-radius:3px;cursor:pointer}
+.hw:active{filter:brightness(.8)}
+#screen{position:relative;width:402px;height:874px;border-radius:60px;overflow:hidden;background:#000;color:var(--text);
+ --bg:#f2f2f7;--card:#fff;--text:#000;--sub:#8a8a8e;--sep:rgba(60,60,67,.16);--fill:#e9e9eb;--blue:#007aff;--glass:rgba(255,255,255,.62);--glassb:rgba(255,255,255,.75);--hi:rgba(0,0,0,.06)}
+#screen.dark{--bg:#000;--card:#1c1c1e;--text:#fff;--sub:#98989f;--sep:rgba(84,84,88,.55);--fill:#2c2c2e;--blue:#0a84ff;--glass:rgba(38,38,42,.6);--glassb:rgba(255,255,255,.14);--hi:rgba(255,255,255,.08)}
+/* status bar */
+#island{position:absolute;top:11px;left:50%;width:124px;height:36px;margin-left:-62px;border-radius:20px;background:#000;z-index:300;transition:width .35s,margin .35s,height .35s}
+#island.wide{width:220px;margin-left:-110px}
+#sb{position:absolute;left:0;right:0;top:0;height:54px;z-index:250;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 46px;color:#fff;font-weight:600;font-size:17px;pointer-events:none;transition:color .2s}
+#sb.blk{color:#000}
+#sb .r{display:flex;align-items:center;gap:6px}
+#sb svg{display:block}
+.bat{position:relative;width:27px;height:13px;border-radius:4px;border:1.3px solid currentColor;opacity:.95;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700}
+.bat:after{content:"";position:absolute;right:-4px;top:3.5px;width:2px;height:4.5px;border-radius:0 2px 2px 0;background:currentColor;opacity:.5}
+/* layers */
+.layer{position:absolute;inset:0}
+#wall{position:absolute;inset:0;transition:background .4s}
+#lock{z-index:40;color:#fff;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s;touch-action:none}
+#lock.gone{transform:translateY(-100%);opacity:.6}
+#lock .ldate{position:absolute;top:84px;width:100%;text-align:center;font-size:21px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.2)}
+#lock .ltime{position:absolute;top:108px;width:100%;text-align:center;font-size:104px;font-weight:700;letter-spacing:-2px;line-height:1.05;font-family:"SF Pro Rounded",-apple-system,"Hiragino Sans",sans-serif;color:rgba(255,255,255,.92);text-shadow:0 2px 18px rgba(0,0,0,.18)}
+.lnoti{position:absolute;left:12px;right:12px;bottom:170px;border-radius:24px;padding:13px 14px;display:flex;gap:11px;align-items:center;color:#000;cursor:pointer;background:rgba(255,255,255,.55);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%)}
+.lnoti .ic{width:38px;height:38px;border-radius:9px;overflow:hidden;flex:none}
+.lnoti b{font-size:15px}.lnoti p{font-size:15px;margin-top:1px}.lnoti small{float:right;color:rgba(0,0,0,.5);font-size:13px}
+.lbtn{position:absolute;bottom:56px;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);cursor:pointer}
+.lbtn:active{background:rgba(255,255,255,.6)}
+.lhint{position:absolute;bottom:26px;width:100%;text-align:center;font-size:14px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;animation:hint 2.4s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:translateY(0);opacity:.85}50%{transform:translateY(-5px);opacity:.5}}
+#home{z-index:10;color:#fff;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s}
+#home.dim{transform:scale(.92);opacity:.0}
+.widgets{position:absolute;top:70px;left:26px;right:26px;display:flex;justify-content:space-between}
+.wd{width:162px;height:162px;border-radius:26px;padding:14px 15px;box-shadow:0 6px 20px rgba(0,0,0,.18);cursor:pointer;overflow:hidden;position:relative}
+.wd.w{background:linear-gradient(180deg,#2f7fe0,#5aa7f5)}
+.wd.c{background:#fff;color:#000}
+.wd .city{font-size:15px;font-weight:600;display:flex;align-items:center;gap:3px}
+.wd .deg{font-size:44px;font-weight:300;line-height:1.05;margin-top:2px}
+.wd .sm{font-size:13px;font-weight:600}
+.wd .wk{color:#ff3b30;font-size:13px;font-weight:700;letter-spacing:.5px}
+.wd .day{font-size:44px;font-weight:300;line-height:1.05}
+.wd .ev{margin-top:12px;border-left:3px solid #ff9500;padding-left:7px;font-size:13px;font-weight:600;line-height:1.35}
+.wd .ev small{display:block;color:#8a8a8e;font-weight:500}
+.wlabel{position:absolute;top:240px;font-size:12px;font-weight:500;width:162px;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.grid{position:absolute;top:276px;left:24px;right:24px;display:grid;grid-template-columns:repeat(4,64px);justify-content:space-between;row-gap:24px}
+.app{display:flex;flex-direction:column;align-items:center;cursor:pointer;width:64px}
+.ic{width:64px;height:64px;border-radius:15px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.18);position:relative}
+.ic svg{width:100%;height:100%;display:block}
+.ic:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px 1px rgba(255,255,255,.45),inset 0 -1px 1px rgba(0,0,0,.08);pointer-events:none}
+.app span{margin-top:6px;font-size:12px;font-weight:500;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.app:active .ic{filter:brightness(.75)}
+.badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:#ff3b30;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 6px;z-index:2}
+.appw{position:relative}
+.pdots{position:absolute;bottom:128px;left:50%;transform:translateX(-50%);display:flex;gap:7px;padding:6px 10px;border-radius:12px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pdots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}.pdots i.on{background:#fff}
+.dock{position:absolute;left:12px;right:12px;bottom:14px;height:96px;border-radius:38px;display:flex;justify-content:space-around;align-items:center;padding:0 10px;
+ background:rgba(255,255,255,.22);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 .5px rgba(255,255,255,.3)}
+.dock .app span{display:none}
+#app{z-index:30;display:none;background:var(--bg);transform-origin:50% 50%;transition:transform .38s cubic-bezier(.2,.85,.25,1),opacity .3s,border-radius .38s;overflow:hidden}
+#app.show{display:block}
+#app.zoom{transform:scale(.22);opacity:0;border-radius:60px}
+#hbar{position:absolute;left:50%;bottom:0;width:180px;margin-left:-90px;height:26px;z-index:400;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;touch-action:none}
+#hbar i{width:140px;height:5px;border-radius:3px;background:#fff;transition:background .2s}
+#hbar.blk i{background:#000}
+#toast{position:absolute;top:62px;left:50%;transform:translate(-50%,-30px);opacity:0;z-index:500;padding:11px 18px;border-radius:22px;font-size:14px;font-weight:600;white-space:nowrap;max-width:360px;overflow:hidden;text-overflow:ellipsis;
+ background:rgba(30,30,32,.82);color:#fff;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:all .3s;pointer-events:none}
+#toast.on{transform:translate(-50%,0);opacity:1}
+/* app common */
+.aw{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);color:var(--text)}
+.top{flex:none;padding-top:54px;position:relative;z-index:5}
+.bar{height:50px;display:flex;align-items:center;padding:0 12px;gap:8px;position:relative}
+.bar .ttl{position:absolute;left:80px;right:80px;text-align:center;font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.bar .sp{flex:1}
+.cb{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer;color:var(--text);
+ background:var(--glass);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:0 2px 12px rgba(0,0,0,.08),inset 0 0 0 .5px var(--glassb)}
+.cb:active{transform:scale(.92)}
+.cb.pl{width:auto;padding:0 16px;font-size:16px;font-weight:600}
+.lt{font-size:34px;font-weight:700;padding:2px 18px 10px;letter-spacing:.2px}
+.body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:110px;position:relative}
+.body::-webkit-scrollbar{display:none}
+.srch{margin:0 16px 12px;height:38px;border-radius:19px;background:var(--fill);display:flex;align-items:center;gap:6px;padding:0 12px;color:var(--sub);font-size:16px}
+.srch input{flex:1;border:0;background:none;outline:none;color:var(--text);font-size:16px;min-width:0}
+.grp{margin:0 16px 22px;background:var(--card);border-radius:24px;overflow:hidden}
+.ghd{margin:0 34px 7px;font-size:13px;color:var(--sub);text-transform:uppercase}
+.gft{margin:-14px 34px 22px;font-size:13px;color:var(--sub);line-height:1.4}
+.cell{display:flex;align-items:center;min-height:52px;padding:0 16px;gap:13px;position:relative;cursor:pointer;font-size:16.5px}
+.cell:active{background:var(--hi)}
+.cell+.cell:before{content:"";position:absolute;top:0;right:0;left:var(--ind,16px);height:.5px;background:var(--sep)}
+.cell .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:11px 0}
+.cell .vl{color:var(--sub);font-size:16px;white-space:nowrap}
+.chev{color:#c4c4c7;flex:none;display:flex}
+.si{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.tg{width:52px;height:32px;border-radius:16px;background:#e3e3e6;position:relative;flex:none;transition:background .25s}
+.dark .tg{background:#39393d}
+.tg:after{content:"";position:absolute;left:2px;top:2px;width:28px;height:28px;border-radius:14px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform .25s}
+.tg.on{background:#34c759!important}.tg.on:after{transform:translateX(20px)}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:none;background:linear-gradient(180deg,#a5abb8,#858a96)}
+.tabs{position:absolute;left:16px;right:16px;bottom:26px;height:64px;border-radius:32px;display:flex;align-items:center;padding:0 5px;z-index:20;
+ background:var(--glass);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 0 0 .5px var(--glassb)}
+.tab{flex:1;height:54px;border-radius:27px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10.5px;font-weight:600;color:var(--text);cursor:pointer}
+.tab.on{color:var(--blue);background:var(--hi)}
+.ib{flex:none;display:flex;gap:8px;padding:8px 12px 34px;align-items:center;background:var(--bg)}
+.ib input{flex:1;height:40px;border-radius:20px;border:1px solid var(--sep);background:var(--card);padding:0 15px;color:var(--text);outline:none;font-size:16px;min-width:0}
+.ib .snd{width:36px;height:36px;border-radius:18px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer}
+.ib .pls{width:36px;height:36px;border-radius:18px;background:var(--fill);display:flex;align-items:center;justify-content:center;flex:none;color:var(--sub)}
+.msgs{padding:10px 12px 14px}
+.m{display:flex;margin:5px 0;align-items:flex-end;gap:6px}
+.m.me{justify-content:flex-end}
+.bb{max-width:74%;padding:9px 14px;border-radius:20px;font-size:16px;line-height:1.38;word-break:break-word;white-space:pre-wrap;-webkit-user-select:text;user-select:text}
+.mt{font-size:10.5px;color:var(--sub);white-space:nowrap;line-height:1.25;text-align:right}
+.day{text-align:center;font-size:12px;color:var(--sub);margin:12px 0 6px}
+.empty{padding:60px 30px;text-align:center;color:var(--sub);font-size:15px;line-height:1.6}
+.pop{animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sub);margin:0 2px;animation:typ 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes typ{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+/* translate */
+.trn{font-size:13px;line-height:1.45;opacity:.62;margin-top:5px;padding-top:5px;border-top:.5px dashed currentColor;white-space:pre-wrap;font-weight:400}
+h2+.trn{font-size:15px;margin-bottom:8px}
+.cb.tron{background:var(--blue);color:#fff}
+/* LINE */
+.ln{--lg:#06c755}
+.ln .msgs{background:#8cabd8;min-height:100%}
+.dark .ln .msgs{background:#1d2633}
+.ln .bb{background:#fff;color:#000;border-radius:18px}
+.ln .me .bb{background:#86e46a;color:#000}
+.ln .rd{font-size:10.5px;color:#fff;text-align:right;line-height:1.25;white-space:nowrap}
+.dark .ln .rd{color:#aab}
+.ln .nm{font-size:11px;color:#fff;margin:0 0 2px 2px}
+/* messages */
+.im .me .bb{background:var(--blue);color:#fff}
+.im .bb{background:var(--fill)}
+/* phone */
+.keypad{display:grid;grid-template-columns:repeat(3,80px);justify-content:center;gap:16px 26px;margin-top:18px}
+.key{width:80px;height:80px;border-radius:40px;background:var(--fill);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+.key:active{filter:brightness(1.35)}
+.dark .key:active{filter:brightness(1.6)}
+.key b{font-size:34px;font-weight:400;line-height:1}
+.key small{font-size:10px;font-weight:700;letter-spacing:2px;margin-top:2px}
+.call{position:absolute;inset:0;z-index:60;color:#fff;background:linear-gradient(180deg,#3d4757 0%,#1c222c 60%,#11151b 100%);display:flex;flex-direction:column;align-items:center}
+.cbtns{display:grid;grid-template-columns:repeat(3,78px);gap:22px 30px;margin-top:auto}
+.cbtn{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;cursor:pointer}
+.cbtn i{width:78px;height:78px;border-radius:39px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.cbtn.on i{background:#fff;color:#1c222c}
+.endb{width:78px;height:78px;border-radius:39px;background:#ff3b30;display:flex;align-items:center;justify-content:center;margin:34px 0 70px;cursor:pointer}
+.greenb{width:78px;height:78px;border-radius:39px;background:#34c759;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+/* safari */
+.sbar{position:absolute;left:12px;right:12px;bottom:26px;display:flex;gap:8px;align-items:center;z-index:20}
+.addr{flex:1;height:48px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:500;padding:0 16px;cursor:text;min-width:0;
+ background:var(--glass);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);box-shadow:0 6px 24px rgba(0,0,0,.12),inset 0 0 0 .5px var(--glassb)}
+.addr input{flex:1;border:0;background:none;outline:none;color:var(--text);font-size:16px;min-width:0}
+.addr span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar .cb{width:48px;height:48px;border-radius:24px}
+.cb.dis{opacity:.35;pointer-events:none}
+.favs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 10px;padding:6px 18px 24px}
+.fav{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;text-align:center;cursor:pointer}
+.fav i{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:24px;font-weight:700;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.sh{font-size:21px;font-weight:700;padding:8px 18px 12px}
+.card{margin:0 16px 16px;background:var(--card);border-radius:20px;padding:16px;font-size:14px;line-height:1.5}
+.web{background:var(--card);min-height:100%}
+.news{display:flex;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:.5px solid var(--sep)}
+.news .th{width:92px;height:70px;border-radius:10px;overflow:hidden;flex:none}
+.news b{font-size:15.5px;line-height:1.4;display:block}
+.news small{font-size:12px;color:var(--sub);display:block;margin-top:5px}
+.sr{padding:14px 18px;border-bottom:.5px solid var(--sep);cursor:pointer}
+.sr small{color:#1a7f37;font-size:12.5px}
+.dark .sr small{color:#4cc76b}
+.sr b{display:block;color:#1a0dab;font-size:17px;font-weight:500;margin:3px 0}
+.dark .sr b{color:#8ab4f8}
+.sr p{font-size:14px;color:var(--sub);line-height:1.45}
+.art{padding:18px;font-size:16px;line-height:1.8}
+.art h2{font-size:24px;line-height:1.35;margin-bottom:8px}
+/* instagram */
+.igh{display:flex;align-items:center;height:48px;padding:0 14px;gap:16px}
+.igh .lg{font-size:26px;font-weight:700;letter-spacing:-.5px;flex:1;font-family:"Snell Roundhand","Savoye LET","Segoe Script",cursive;font-style:italic}
+.stories{display:flex;gap:14px;padding:6px 12px 12px;overflow-x:auto;border-bottom:.5px solid var(--sep)}
+.stories::-webkit-scrollbar{display:none}
+.st{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11.5px;width:70px;flex:none;cursor:pointer}
+.ring{width:70px;height:70px;border-radius:50%;padding:3px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf)}
+.ring.seen{background:var(--sep)}
+.ring>div{width:100%;height:100%;border-radius:50%;border:3px solid var(--card);overflow:hidden;font-size:24px}
+.post .ph{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:14px;font-weight:600}
+.post .img{width:402px;height:402px;position:relative;overflow:hidden}
+.post .img .hp{position:absolute;left:50%;top:50%;margin:-50px 0 0 -50px;color:#fff;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));animation:heart .9s forwards;pointer-events:none}
+@keyframes heart{0%{transform:scale(0);opacity:0}15%{transform:scale(1.2);opacity:1}30%{transform:scale(.95)}70%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+.acts{display:flex;align-items:center;gap:16px;padding:10px 14px 6px}
+.acts span{cursor:pointer;display:flex}
+.post .cap{padding:0 14px;font-size:14px;line-height:1.45}
+.post .cap.sub{color:var(--sub);margin-top:4px}
+.post .tm{padding:4px 14px 18px;font-size:11.5px;color:var(--sub)}
+.iggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.iggrid div{aspect-ratio:1;overflow:hidden;cursor:pointer}
+.igtabs{flex:none;height:84px;display:flex;justify-content:space-around;padding:10px 0 34px;border-top:.5px solid var(--sep);background:var(--card)}
+.igtabs span{cursor:pointer;display:flex;padding:4px 14px;opacity:.55}.igtabs span.on{opacity:1}
+.igp{display:flex;align-items:center;gap:22px;padding:8px 18px}
+.igp .n{text-align:center;font-size:13px}.igp .n b{display:block;font-size:17px}
+.igbtn{flex:1;height:34px;border-radius:9px;background:var(--fill);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center}
+/* forum */
+.chips{display:flex;gap:8px;padding:0 16px 12px;overflow-x:auto}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:7px 15px;border-radius:17px;background:var(--fill);font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer}
+.chip.on{background:#ff7a00;color:#fff}
+.th{padding:13px 16px;cursor:pointer;position:relative}
+.th+.th:before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+.th:active{background:var(--hi)}
+.th b{font-size:16px;line-height:1.4;display:block}
+.th small{font-size:12.5px;color:var(--sub);display:flex;gap:10px;margin-top:5px}
+.tag{font-size:11px;font-weight:700;color:#ff7a00;background:rgba(255,122,0,.12);padding:1px 7px;border-radius:5px}
+.rp{padding:12px 16px;border-bottom:.5px solid var(--sep)}
+.rp .h{font-size:12.5px;color:var(--sub);display:flex;gap:8px;flex-wrap:wrap}
+.rp .h b{color:#1f9d3a}
+.rp .h .no{color:var(--text);font-weight:700}
+.rp p{font-size:15.5px;line-height:1.6;margin-top:5px;white-space:pre-wrap;word-break:break-word;-webkit-user-select:text;user-select:text}
+.rp p .anc{color:var(--blue)}
+.fi{width:100%;border:0;border-radius:14px;background:var(--card);padding:13px 15px;color:var(--text);outline:none;font-size:16px;display:block}
+textarea.fi{height:200px;resize:none;line-height:1.5}
+/* photos */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pgrid div{aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative}
+.pgrid div .fh{position:absolute;left:5px;bottom:4px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.albs{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 16px 20px}
+.alb{cursor:pointer}.alb div{aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--fill)}
+.alb b{display:block;font-size:15px;font-weight:600;margin-top:7px}.alb small{color:var(--sub);font-size:14px}
+.viewer{position:absolute;inset:0;background:#000;z-index:50;color:#fff;display:flex;flex-direction:column}
+.viewer .vimg{flex:1;display:flex;align-items:center;position:relative}
+.viewer .vimg>div{width:402px;height:402px}
+.vbar{display:flex;justify-content:space-around;padding:14px 10px 40px}
+.vbar span{cursor:pointer;display:flex;padding:8px}
+/* maps */
+.map{position:absolute;inset:0;touch-action:none;cursor:grab;background:#ece8df}
+.dark .map{background:#232326}
+.map svg{width:100%;height:100%;display:block}
+.pin{cursor:pointer}
+.msheet{position:absolute;left:10px;right:10px;bottom:22px;border-radius:30px;z-index:10;padding:12px;max-height:470px;display:flex;flex-direction:column;
+ background:var(--glass);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:0 8px 30px rgba(0,0,0,.2),inset 0 0 0 .5px var(--glassb)}
+.msheet .srch{margin:0;background:var(--fill)}
+.mlist{overflow-y:auto;margin-top:8px}
+.mrow{display:flex;align-items:center;gap:12px;padding:10px 6px;cursor:pointer;border-radius:14px}
+.mrow:active{background:var(--hi)}
+.mrow .pi{width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.mrow b{font-size:16px;display:block}.mrow small{color:var(--sub);font-size:13px}
+.mbtn{flex:1;height:50px;border-radius:25px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;cursor:pointer;background:var(--fill)}
+.mbtn.pri{background:var(--blue);color:#fff}
+.mside{position:absolute;right:12px;top:110px;display:flex;flex-direction:column;gap:10px;z-index:10}
+/* settings */
+.prof{display:flex;align-items:center;gap:14px;padding:12px 16px;cursor:pointer}
+.radio{color:var(--blue);font-weight:700}
+.walls{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 16px 22px}
+.walls div{aspect-ratio:.46;border-radius:16px;cursor:pointer;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.walls div.on{outline:3px solid var(--blue);outline-offset:2px}
+.appear{display:flex;justify-content:space-around;padding:18px 10px 14px}
+.appear>div{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-size:14px}
+.appear .pv{width:78px;height:160px;border-radius:14px;border:2px solid var(--sep);overflow:hidden}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.bigb{padding:24px 16px;text-align:center}
+.bigb b{font-size:56px;font-weight:300}
+.bars{display:flex;align-items:flex-end;gap:5px;height:100px;padding:0 16px 14px}
+.bars i{flex:1;background:#34c759;border-radius:3px 3px 0 0}
+</style></head>
+<body>
+<div id="stage"><div id="phone">
+ <div class="hw" style="left:-3px;top:170px;width:5px;height:34px" data-a="action"></div>
+ <div class="hw" style="left:-3px;top:232px;width:5px;height:62px" data-a="vol" data-v="up"></div>
+ <div class="hw" style="left:-3px;top:308px;width:5px;height:62px" data-a="vol" data-v="down"></div>
+ <div class="hw" style="right:-3px;top:262px;width:5px;height:100px" data-a="power"></div>
+ <div id="bezel"><div id="screen">
+  <div id="wall"></div>
+  <div id="home" class="layer"></div>
+  <div id="app" class="layer"></div>
+  <div id="lock" class="layer"></div>
+  <div id="island"></div>
+  <div id="sb"></div>
+  <div id="toast"></div>
+  <div id="hbar"><i></i></div>
+ </div></div>
+</div></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const S={lang:'ja',dark:false,wall:0,air:false,wifi:true,ssid:'Home-5G',bt:true,locked:true,app:null,batt:82,bright:70,truetone:true,lowpow:false,pct:true,silent:false,vol:60,r:{},noti:{line:true,msg:true,phone:true,ig:true,forum:false}};
+const li=()=>S.lang==='ja'?0:1;
+const x=v=>Array.isArray(v)?v[li()]:v;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const hm=(d=new Date())=>d.getHours()+':'+pad(d.getMinutes());
+let SCALE=1;
+
+const T={
+app_line:['LINE','LINE'],app_msg:['メッセージ','信息'],app_phone:['電話','电话'],app_safari:['Safari','Safari'],app_ig:['Instagram','Instagram'],app_forum:['掲示板','论坛'],app_photos:['写真','照片'],app_maps:['マップ','地图'],app_settings:['設定','设置'],
+swipe:['上にスワイプして開く','向上轻扫以打开'],now:['今','现在'],tokyo:['東京','东京'],sunny:['晴れ','晴'],hilo:['最高:21° 最低:13°','最高 21° 最低 13°'],
+halloween:['ハロウィン 🎃','万圣节 🎃'],party:['19:00〜 渋谷で集合','19:00 涩谷集合'],weather:['天気','天气'],calendar:['カレンダー','日历'],search:['検索','搜索'],
+l_home:['ホーム','主页'],l_talk:['トーク','聊天'],l_friends:['友だち','好友'],l_groups:['グループ','群组'],l_status:['今日も一日がんばろう💪','今天也要加油💪'],l_read:['既読','已读'],l_msgph:['メッセージを入力','输入消息'],l_talkph:['トークを検索','搜索聊天'],l_fsearch:['友だちを検索','搜索好友'],l_noai:['AIに接続できません','无法连接 AI'],l_setname:['タップして名前を設定','点击设置名字'],l_saved:['名前を保存しました','名字已保存'],l_err:['メッセージを送信できませんでした','消息发送失败'],l_nofriend:['友だちはまだいません','还没有好友'],l_notalk:['トークはまだありません','还没有聊天'],m_none:['メッセージはありません','没有信息'],p_nofav:['よく使う項目はありません','没有个人收藏'],p_norec:['履歴はありません','没有最近通话'],p_nocon:['連絡先はありません','没有联系人'],ph_none:['写真やビデオはありません','没有照片或视频'],l_bday:['誕生日が近い友だち','即将过生日的好友'],
+m_ph:['テキストメッセージ','短信'],m_deliv:['配信済み','已送达'],m_today:['今日','今天'],
+p_fav:['よく使う項目','个人收藏'],p_rec:['履歴','最近通话'],p_con:['連絡先','通讯录'],p_key:['キーパッド','拨号键盘'],p_missed:['不在着信','未接来电'],p_mobile:['携帯電話','手机'],p_calling:['呼び出し中…','正在呼叫…'],p_mute:['消音','静音'],p_spk:['スピーカー','扬声器'],p_add:['通話を追加','添加通话'],p_ft:['FaceTime','FaceTime'],p_mycard:['マイカード','我的名片'],p_msg:['メッセージ','信息'],p_call:['電話','电话'],p_mail:['メール','邮件'],p_video:['ビデオ','视频'],p_ended:['通話終了','通话结束'],p_in:['着信','来电'],p_out:['発信','去电'],p_unknown:['不明','未知号码'],p_edit:['編集','编辑'],
+yesterday:['昨日','昨天'],thu:['木曜日','星期四'],wed:['水曜日','星期三'],
+s_ph:['検索/Webサイト名','搜索或输入网站名称'],s_fav:['お気に入り','个人收藏'],s_freq:['よく閲覧するサイト','经常访问'],s_priv:['プライバシーレポート','隐私报告'],s_privtx:['過去7日間で、Safariは23個のトラッカーによるプロファイル作成を阻止しました。','过去 7 天内，Safari 阻止了 23 个跟踪器对你进行画像分析。'],s_res:['約 {n} 件の検索結果','约 {n} 条结果'],s_img:['の画像','的图片'],s_news:['の最新ニュース','的最新新闻'],s_dict:['とは - ことば百科','是什么 - 词语百科'],s_bbs:[' - みんなの掲示板',' - 大家的论坛'],s_hourly:['1時間ごとの予報','每小时预报'],s_week:['10日間予報','10 日预报'],s_dicttx:['についての解説ページです。これはデモ用の架空のページで、実際の情報ではありません。','的解说页面。这是演示用的虚构页面，并非真实信息。'],s_newsname:['ヨミナビ ニュース','YomiNavi 新闻'],s_wname:['そらもよう天気','天空模样天气'],s_dname:['ことば百科','词语百科'],s_noweb:['このサイトはデモでは表示できません','演示中无法显示此网站'],s_tabs:['タブ','标签页'],
+i_likes:['いいね！{n}件','{n} 次赞'],i_comments:['コメント{n}件をすべて見る','查看全部 {n} 条评论'],i_you:['ストーリーズ','你的快拍'],i_posts:['投稿','帖子'],i_followers:['フォロワー','粉丝'],i_following:['フォロー中','已关注'],i_edit:['プロフィールを編集','编辑主页'],i_share:['プロフィールをシェア','分享主页'],i_bio:['東京在住 📍 写真とカフェが好き☕️','坐标东京 📍 喜欢拍照和咖啡☕️'],i_reels:['リール','Reels'],i_explore:['検索','搜索'],i_saved:['保存しました','已收藏'],
+f_title:['みんなの掲示板','大家的论坛'],f_all:['すべて','全部'],f_chat:['雑談','闲聊'],f_food:['グルメ','美食'],f_travel:['旅行','旅行'],f_tech:['テック','科技'],f_res:['レス','回复'],f_anon:['名無しさん','匿名用户'],f_you:['名無しさん（あなた）','匿名用户（你）'],f_replyph:['レスを書き込む…','写回复…'],f_new:['新規スレッド','发新帖'],f_ttl:['スレッドタイトル','标题'],f_body:['本文','正文'],f_post:['投稿','发布'],f_cat:['カテゴリ','分类'],f_posted:['投稿しました','已发布'],f_need:['タイトルと本文を入力してください','请输入标题和正文'],
+ph_lib:['ライブラリ','图库'],ph_alb:['アルバム','相簿'],ph_count:['{n}枚の写真','{n} 张照片'],ph_fav:['お気に入り','个人收藏'],ph_recent:['最近の項目','最近项目'],ph_travel:['旅行','旅行'],ph_food:['食べ物','美食'],ph_del:['写真を削除しました','照片已删除'],ph_my:['マイアルバム','我的相簿'],ph_info:['2026年10月 · iPhone 17 · 48MP','2026年10月 · iPhone 17 · 4800万像素'],
+mp_search:['マップで検索','搜索地图'],mp_route:['経路','路线'],mp_walk:['徒歩','步行'],mp_min:['分','分钟'],mp_go:['出発','出发'],mp_navstart:['ナビを開始しました','已开始导航'],mp_near:['周辺のスポット','附近地点'],mp_here:['現在地','我的位置'],
+st_acc:['Apple Account、iCloud、その他','Apple 账户、iCloud 等'],st_air:['機内モード','飞行模式'],st_wifi:['Wi-Fi','无线局域网'],st_bt:['Bluetooth','蓝牙'],st_cell:['モバイル通信','蜂窝网络'],st_gen:['一般','通用'],st_disp:['画面表示と明るさ','显示与亮度'],st_wall:['壁紙','墙纸'],st_lang:['言語と地域','语言与地区'],st_noti:['通知','通知'],st_sound:['サウンドと触覚','声音与触感'],st_focus:['集中モード','专注模式'],st_screen:['スクリーンタイム','屏幕使用时间'],st_batt:['バッテリー','电池'],st_priv:['プライバシーとセキュリティ','隐私与安全性'],on:['オン','打开'],off:['オフ','关闭'],st_about:['情報','关于本机'],st_update:['ソフトウェアアップデート','软件更新'],st_date:['日付と時刻','日期与时间'],st_kb:['キーボード','键盘'],st_reset:['転送またはiPhoneをリセット','传输或还原 iPhone'],st_name:['名前','名称'],st_ver:['iOSバージョン','iOS 版本'],st_model:['モデル名','型号名称'],st_cap:['容量','容量'],st_avail:['使用可能','可用容量'],st_serial:['シリアル番号','序列号'],st_pref:['優先する言語','首选语言'],st_region:['地域','地区'],st_japan:['日本','日本'],st_langnote:['AppやWebサイトは、このリストで対応している最初の言語で表示されます。','App 和网站将使用此列表中第一个受支持的语言。'],st_appear:['外観','外观'],st_light:['ライト','浅色'],st_dark:['ダーク','深色'],st_bright:['明るさ','亮度'],st_tt:['True Tone','原彩显示'],st_networks:['ネットワーク','网络'],st_mydev:['自分のデバイス','我的设备'],st_conn:['接続済み','已连接'],st_notconn:['未接続','未连接'],st_upd1:['iOS 26.1','iOS 26.1'],st_upd2:['iOSは最新です','iOS 已是最新版本'],st_lowpow:['低電力モード','低电量模式'],st_pct:['バッテリー残量（%）','电池百分比'],st_ring:['着信音と通知音','铃声与提醒'],st_haptic:['システムの触覚','系统触感'],st_silent:['消音モード','静音模式'],st_choose:['壁紙を選択','选择墙纸'],st_wallset:['壁紙を設定しました','已设置墙纸'],st_langchg:['言語を日本語に変更しました','语言已更改为简体中文'],st_demo:['この項目はデモでは使用できません','此项在演示中不可用'],st_data:['モバイルデータ通信','蜂窝数据'],st_roam:['データローミング','数据漫游'],st_hotspot:['インターネット共有','个人热点'],st_focusnote:['集中モードを使うと、通知を減らして目の前のことに集中できます。','专注模式可以减少通知，帮助你专注于眼前的事。'],st_sttx:['1日の平均','日均'],st_loc:['位置情報サービス','定位服务'],st_track:['トラッキング','跟踪'],st_myname:['名前未設定','未设置名字'],st_last24:['過去24時間','过去 24 小时'],st_dnd:['おやすみモード','勿扰模式'],st_sleep:['睡眠','睡眠'],st_work:['仕事','工作'],st_personal:['パーソナル','个人'],st_allow:['通知を許可','允许通知'],st_sim:['SoftBank','SoftBank'],st_langq:['言語 / 语言','语言 / 言語'],st_ask:['接続を確認','询问是否加入网络'],
+vol:['音量','音量'],action:['アクションボタン：消音モード','操作按钮：静音模式'],silentoff:['消音モード：オフ','静音模式：关闭'],airon:['機内モード：オン','飞行模式：已开启'],
+};
+const t=(k,n)=>{const v=T[k]?T[k][li()]:k;return n!==undefined?v.replace('{n}',n):v};
+const WD=[['日','月','火','水','木','金','土'],['日','一','二','三','四','五','六']];
+function dateLine(d=new Date()){return li()===0?`${d.getMonth()+1}月${d.getDate()}日 ${WD[0][d.getDay()]}曜日`:`${d.getMonth()+1}月${d.getDate()}日 星期${WD[1][d.getDay()]}`}
+function wdName(d=new Date()){return li()===0?WD[0][d.getDay()]+'曜日':'星期'+WD[1][d.getDay()]}
+function rel(min){if(min<1)return li()?'刚刚':'たった今';if(min<60)return li()?min+' 分钟前':min+'分前';const h=Math.floor(min/60);if(h<24)return li()?h+' 小时前':h+'時間前';return li()?Math.floor(h/24)+' 天前':Math.floor(h/24)+'日前'}
+function stamp(min){const d=new Date(Date.now()-min*60000);return `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())}(${WD[li()][d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}`}
+
+/* ---------- glyphs ---------- */
+const P={
+back:'<path d="M15 4.5 7.5 12l7.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
+fwd:'<path d="M9 4.5 16.5 12 9 19.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
+chev:'<path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+up:'<path d="M12 19V6M6 11.5 12 5.5l6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
+plus:'<path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+x:'<path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+srch:'<circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+heart:'<path d="M12 20.5s-7.6-4.6-9.5-9.3C1.2 7.8 3.4 4.5 6.9 4.5c2.1 0 3.6 1.2 5.1 3.1 1.5-1.9 3-3.1 5.1-3.1 3.5 0 5.7 3.3 4.4 6.7-1.9 4.7-9.5 9.3-9.5 9.3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+heartf:'<path d="M12 20.5s-7.6-4.6-9.5-9.3C1.2 7.8 3.4 4.5 6.9 4.5c2.1 0 3.6 1.2 5.1 3.1 1.5-1.9 3-3.1 5.1-3.1 3.5 0 5.7 3.3 4.4 6.7-1.9 4.7-9.5 9.3-9.5 9.3z" fill="currentColor"/>',
+cmt:'<path d="M20.5 11.6a8.4 8.4 0 0 1-12.5 7.3L3.5 20.3l1.4-4.3a8.4 8.4 0 1 1 15.6-4.4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+send:'<path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+bm:'<path d="M6 3.5h12v17l-6-4.2-6 4.2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+bmf:'<path d="M6 3.5h12v17l-6-4.2-6 4.2z" fill="currentColor"/>',
+home:'<path d="M3.5 11 12 3.8l8.5 7.2V20.5h-5.5v-6h-6v6H3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+homef:'<path d="M3.5 11 12 3.8l8.5 7.2V20.5h-5.5v-6h-6v6H3.5z" fill="currentColor"/>',
+user:'<circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 20.5c1-4 4.2-6 8-6s7 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+userf:'<circle cx="12" cy="8" r="4.3" fill="currentColor"/><path d="M3.5 21c1-4.6 4.4-6.8 8.5-6.8s7.5 2.2 8.5 6.8z" fill="currentColor"/>',
+users:'<circle cx="9" cy="8" r="3.5" fill="currentColor"/><circle cx="17" cy="9" r="2.8" fill="currentColor" opacity=".7"/><path d="M2 20c.8-4 3.6-6 7-6s6.2 2 7 6zM15.5 14.2c3.2-.4 5.7 1.4 6.5 5.3h-4.5" fill="currentColor"/>',
+chat:'<path d="M12 4C6.8 4 3 7.3 3 11.3c0 2.3 1.3 4.4 3.4 5.7L5.8 20.5l4-2.1c.7.1 1.4.2 2.2.2 5.2 0 9-3.3 9-7.3S17.2 4 12 4z" fill="currentColor"/>',
+phone:'<path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .7-.3 1z" fill="currentColor"/>',
+clock:'<circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5.3l3.3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+star:'<path d="m12 3.3 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.7l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" fill="currentColor"/>',
+dots:'<circle cx="6" cy="6" r="1.7" fill="currentColor"/><circle cx="12" cy="6" r="1.7" fill="currentColor"/><circle cx="18" cy="6" r="1.7" fill="currentColor"/><circle cx="6" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="18" cy="12" r="1.7" fill="currentColor"/><circle cx="6" cy="18" r="1.7" fill="currentColor"/><circle cx="12" cy="18" r="1.7" fill="currentColor"/><circle cx="18" cy="18" r="1.7" fill="currentColor"/>',
+more:'<circle cx="5.5" cy="12" r="1.9" fill="currentColor"/><circle cx="12" cy="12" r="1.9" fill="currentColor"/><circle cx="18.5" cy="12" r="1.9" fill="currentColor"/>',
+mic:'<rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M3 3l18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+spk:'<path d="M4 9h3.5L12 5v14l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+video:'<rect x="2.5" y="6.5" width="13" height="11" rx="2.5" fill="currentColor"/><path d="m16.5 10.5 5-3v9l-5-3z" fill="currentColor"/>',
+mail:'<rect x="3" y="5.5" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.5 7 8.5 6.5L20.5 7" fill="none" stroke="currentColor" stroke-width="2"/>',
+del:'<path d="M8 5h13v14H8l-6-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m12 9.5 5 5M17 9.5l-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+trash:'<path d="M4 6.5h16M9 6.5V4h6v2.5M6 6.5l1 14h10l1-14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+info:'<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.3" fill="currentColor"/>',
+share:'<path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M7 10.5H5v10h14v-10h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+book:'<path d="M3 5.5c3-1 6-1 9 1 3-2 6-2 9-1V19c-3-1-6-1-9 1-3-2-6-2-9-1z M12 6.5V20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>',
+tabs:'<rect x="3.5" y="3.5" width="13" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20.5h10.5a2 2 0 0 0 2-2V8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+loc:'<path d="M3 11 21 3l-8 18-2-8z" fill="currentColor"/>',
+locO:'<path d="M3 11 21 3l-8 18-2-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+minus:'<path d="M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+walk:'<circle cx="13" cy="4" r="2" fill="currentColor"/><path d="m10 21 2-7 3 3v4M9 11l2-4 4 1 2 4M11 7l-3 3-1 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+plane:'<path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0v5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" fill="currentColor"/>',
+wifi:'<path d="M2 9a14.5 14.5 0 0 1 20 0M5.3 12.4a9.6 9.6 0 0 1 13.4 0M8.6 15.8a4.8 4.8 0 0 1 6.8 0" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/><circle cx="12" cy="19.2" r="1.7" fill="currentColor"/>',
+bt:'<path d="m7 7.5 10 9-5 4.5V3l5 4.5-10 9" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>',
+cell:'<rect x="3" y="14" width="3.2" height="6" rx="1" fill="currentColor"/><rect x="8.2" y="10.5" width="3.2" height="9.5" rx="1" fill="currentColor"/><rect x="13.4" y="7" width="3.2" height="13" rx="1" fill="currentColor"/><rect x="18.6" y="3.5" width="3.2" height="16.5" rx="1" fill="currentColor"/>',
+gear:'<circle cx="12" cy="12" r="7.3" fill="none" stroke="currentColor" stroke-width="3.6" stroke-dasharray="2.9 2.83"/><circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="2.6"/>',
+sun:'<circle cx="12" cy="12" r="4.3" fill="currentColor"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+flower:'<circle cx="12" cy="7" r="3.3" fill="currentColor"/><circle cx="7.2" cy="10.6" r="3.3" fill="currentColor"/><circle cx="16.8" cy="10.6" r="3.3" fill="currentColor"/><circle cx="9" cy="16" r="3.3" fill="currentColor"/><circle cx="15" cy="16" r="3.3" fill="currentColor"/>',
+globe:'<circle cx="12" cy="12" r="8.7" fill="none" stroke="currentColor" stroke-width="1.9"/><ellipse cx="12" cy="12" rx="3.8" ry="8.7" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M3.5 12h17" stroke="currentColor" stroke-width="1.9"/>',
+bell:'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.8 1.8H4.2zM10 20.5a2 2 0 0 0 4 0" fill="currentColor"/>',
+moon:'<path d="M20.5 13.5A8.5 8.5 0 1 1 10.5 3.5a6.8 6.8 0 0 0 10 10z" fill="currentColor"/>',
+hour:'<path d="M6.5 3h11M6.5 21h11M7.5 3c0 5 4.5 6 4.5 9s-4.5 4-4.5 9M16.5 3c0 5-4.5 6-4.5 9s4.5 4 4.5 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+batt:'<rect x="2.5" y="7" width="17" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4.5" y="9" width="10" height="6" rx="1" fill="currentColor"/><path d="M21.5 10.5v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+hand:'<path d="M8 12V5.5a1.5 1.5 0 0 1 3 0V11V4a1.5 1.5 0 0 1 3 0v7V5.5a1.5 1.5 0 0 1 3 0V14c0 4-2.5 7-6.3 7-2.6 0-4-1.3-5.4-3.5L3.6 13.6a1.5 1.5 0 0 1 2.5-1.6z" fill="currentColor"/>',
+check:'<path d="m4.5 12.5 5 5L19.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
+lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="currentColor"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="2.2"/>',
+light:'<path d="M8 2.5h8v4l-2 3V21h-4V9.5l-2-3z" fill="currentColor"/>',
+cam:'<path d="M3 8.5a2 2 0 0 1 2-2h2.5L9 4.5h6l1.5 2H19a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="currentColor"/><circle cx="12" cy="13" r="3.6" fill="#555"/>',
+edit:'<path d="M4 20h4L19 9l-4-4L4 16z M14 6l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+reels:'<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 8.5h17M8.5 3.5l3 5M14 3.5l3 5" stroke="currentColor" stroke-width="2"/><path d="m10 11.5 5 3-5 3z" fill="currentColor"/>',
+sq:'<rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+key:'<rect x="2.5" y="6" width="19" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M6 10h1M9 10h1M12 10h1M15 10h1M18 10h0M7 14h10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>',
+cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>',
+reset:'<path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4.5h4.5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>',
+};
+const G=(n,s=22,st='')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" style="display:block;${st}">${P[n]}</svg>`;
+
+/* ---------- app icons ---------- */
+const ICONS={
+line:`<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="#06C755"/><rect x="10.5" y="13.5" width="39" height="27" rx="13.5" fill="#fff"/><path d="M20 38.5 18.5 47.5 30 40z" fill="#fff"/><circle cx="21.5" cy="27" r="2.8" fill="#06C755"/><circle cx="30" cy="27" r="2.8" fill="#06C755"/><circle cx="38.5" cy="27" r="2.8" fill="#06C755"/></svg>`,
+ig:`<svg viewBox="0 0 60 60"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#ffd76a"/><stop offset=".3" stop-color="#ff7a2a"/><stop offset=".58" stop-color="#e3266e"/><stop offset=".82" stop-color="#a42fbf"/><stop offset="1" stop-color="#5a55d8"/></linearGradient></defs><rect width="60" height="60" fill="url(#igg)"/><rect x="13" y="13" width="34" height="34" rx="11" fill="none" stroke="#fff" stroke-width="3.6"/><path d="M30 41s-8.5-5-8.5-10.5c0-3 2.2-5 4.7-5 1.7 0 3 .9 3.8 2.3.8-1.4 2.1-2.3 3.8-2.3 2.5 0 4.7 2 4.7 5C38.5 36 30 41 30 41z" fill="#fff"/></svg>`,
+forum:`<svg viewBox="0 0 60 60"><defs><linearGradient id="gfo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb340"/><stop offset="1" stop-color="#ff6a00"/></linearGradient></defs><rect width="60" height="60" fill="url(#gfo)"/><rect x="9" y="12" width="30" height="22" rx="8" fill="#fff"/><path d="M15 32l-2 7 9-5z" fill="#fff"/><path d="M15 20h18M15 26h12" stroke="#ff8a1a" stroke-width="2.6" stroke-linecap="round"/><rect x="24" y="27" width="27" height="20" rx="8" fill="#ffe3c4"/><path d="M45 45l2 6-8-5z" fill="#ffe3c4"/><circle cx="31" cy="37" r="2" fill="#ff8a1a"/><circle cx="37.5" cy="37" r="2" fill="#ff8a1a"/><circle cx="44" cy="37" r="2" fill="#ff8a1a"/></svg>`,
+phone:`<svg viewBox="0 0 60 60"><defs><linearGradient id="gph" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ee67a"/><stop offset="1" stop-color="#28b845"/></linearGradient></defs><rect width="60" height="60" fill="url(#gph)"/><g transform="translate(12 12) scale(1.5)" fill="#fff">${P.phone}</g></svg>`,
+msg:`<svg viewBox="0 0 60 60"><defs><linearGradient id="gms" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ee67a"/><stop offset="1" stop-color="#28b845"/></linearGradient></defs><rect width="60" height="60" fill="url(#gms)"/><ellipse cx="30" cy="28.5" rx="19.5" ry="15.5" fill="#fff"/><path d="M15.5 37.5c0 4-2 7-5 8.5 5 .4 9-1.4 11.5-4z" fill="#fff"/></svg>`,
+safari:`<svg viewBox="0 0 60 60"><defs><linearGradient id="gsf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fd0ff"/><stop offset="1" stop-color="#1d64e6"/></linearGradient></defs><rect width="60" height="60" fill="#fff"/><circle cx="30" cy="30" r="23" fill="url(#gsf)"/><circle cx="30" cy="30" r="20" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray=".8 2.34" opacity=".9"/><polygon points="43,17 33,33 27,27" fill="#ff3b30"/><polygon points="17,43 27,27 33,33" fill="#fff"/></svg>`,
+photos:`<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="#fff"/><rect x="9" y="11" width="42" height="38" rx="9" fill="#e9f3ff"/><circle cx="39" cy="22" r="5" fill="#ffc22e"/><path d="M9 41l12-14 9 10 6-6 15 13v1a9 9 0 0 1-9 9H18a9 9 0 0 1-9-9z" fill="#34c26b"/><path d="M9 45l12-11 9 8 6-5 15 11a9 9 0 0 1-9 6H18a9 9 0 0 1-9-9z" fill="#1f9f52"/></svg>`,
+maps:`<svg viewBox="0 0 60 60"><rect width="60" height="60" fill="#e4efd6"/><path d="M0 42c12-4 20 2 28 18H0z" fill="#9ed2ff"/><path d="M38 0h22v22c-8 0-18-8-22-22z" fill="#c4e3a6"/><path d="M-2 25 62 34" stroke="#fff" stroke-width="7"/><path d="M41 -2 27 62" stroke="#ffd34d" stroke-width="7"/><path d="M14 46c6-6 10-9 20-14" fill="none" stroke="#2d8cff" stroke-width="3.5" stroke-linecap="round"/><path d="M42 9c-5 0-8.5 3.6-8.5 8 0 6 8.5 14 8.5 14s8.5-8 8.5-14c0-4.4-3.5-8-8.5-8z" fill="#ff3b30"/><circle cx="42" cy="17" r="3.3" fill="#fff"/></svg>`,
+settings:`<svg viewBox="0 0 60 60"><defs><linearGradient id="gst" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d1d1d6"/><stop offset="1" stop-color="#8e8e93"/></linearGradient></defs><rect width="60" height="60" fill="url(#gst)"/><circle cx="30" cy="30" r="19" fill="none" stroke="#4a4a4e" stroke-width="5.5" stroke-dasharray="3.73 3.73"/><circle cx="30" cy="30" r="15" fill="#4a4a4e"/><circle cx="30" cy="30" r="10.5" fill="#c3c3c8"/><circle cx="30" cy="30" r="5" fill="#4a4a4e"/></svg>`,
+};
+const APPS=['line','msg','phone','safari','ig','forum','photos','maps','settings'];
+const ic=(id,s=64)=>`<div class="ic" style="width:${s}px;height:${s}px;border-radius:${s*.235}px">${ICONS[id]}</div>`;
+
+/* ---------- wallpapers ---------- */
+const WALLS=[
+ 'radial-gradient(120% 70% at 20% 10%,#ff9ec4 0%,transparent 55%),radial-gradient(100% 70% at 90% 40%,#7aa7ff 0%,transparent 60%),radial-gradient(120% 80% at 30% 100%,#5b3fd1 0%,transparent 65%),linear-gradient(160deg,#f6b4d3,#8f8cf4 50%,#3b2a8f)',
+ 'radial-gradient(100% 60% at 80% 0%,#ffd27a 0%,transparent 60%),radial-gradient(120% 70% at 0% 60%,#ff6f61 0%,transparent 60%),linear-gradient(170deg,#ffb36b,#f0566e 55%,#6a1b4d)',
+ 'radial-gradient(110% 60% at 20% 0%,#9ff2e0 0%,transparent 60%),radial-gradient(110% 70% at 100% 70%,#2e7cf6 0%,transparent 60%),linear-gradient(170deg,#7be0d0,#2f8fd9 55%,#0b2f6b)',
+ 'radial-gradient(110% 60% at 50% 0%,#55607a 0%,transparent 60%),linear-gradient(180deg,#232836,#0d0f15)',
+ 'radial-gradient(90% 50% at 30% 20%,#c7f59a 0%,transparent 60%),radial-gradient(100% 60% at 90% 80%,#1f9b6b 0%,transparent 60%),linear-gradient(165deg,#a6e58b,#2fa678 55%,#0f4a3f)',
+ 'radial-gradient(100% 60% at 70% 10%,#ffe0f0 0%,transparent 60%),radial-gradient(100% 70% at 10% 80%,#ffc2a8 0%,transparent 60%),linear-gradient(170deg,#ffe4ef,#ffb8c9 55%,#e7809e)',
+];
+
+/* ---------- art generator (for photos / posts) ---------- */
+let UID=0;
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function art(i){
+ const r=rng(i*977+13),u='a'+(UID++),k=i%6;let s='';
+ const g=(id,c1,c2)=>`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>`;
+ if(k===0){const hues=[['#ff9a5a','#ff5e7e','#5b3a8c'],['#ffd27a','#ff8a5c','#3b4e8c'],['#ffb3c7','#c58bf2','#2d3a7a']][i%3];
+  s=`<defs><linearGradient id="${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hues[2]}"/><stop offset=".55" stop-color="${hues[1]}"/><stop offset="1" stop-color="${hues[0]}"/></linearGradient></defs><rect width="100" height="100" fill="url(#${u})"/><circle cx="${30+r()*40}" cy="60" r="${10+r()*6}" fill="#fff3c4" opacity=".95"/><rect y="63" width="100" height="37" fill="#24305e"/>`;
+  for(let j=0;j<7;j++)s+=`<rect x="${r()*80}" y="${66+j*4.5}" width="${8+r()*20}" height="1.2" fill="#ffd9a0" opacity="${.5-j*.05}"/>`}
+ else if(k===1){s=`<defs>${g(u,'#7fc4ff','#dff1ff')}</defs><rect width="100" height="100" fill="url(#${u})"/>`;
+  const cols=['#5b6f8f','#3e5274','#2c3d5a'];for(let j=0;j<3;j++){const b=55+j*12,p=10+r()*70;s+=`<path d="M-10 100 L${p-30} ${b} L${p} ${b-25-r()*15} L${p+30} ${b+5} L${p+55} ${b-10} L115 100Z" fill="${cols[j]}"/>`;if(j===0)s+=`<path d="M${p-9} ${b-17} L${p} ${b-32} L${p+9} ${b-17} L${p+3} ${b-20} L${p-3} ${b-16}Z" fill="#fff"/>`}
+  s+=`<rect y="88" width="100" height="12" fill="#2f6b4a"/>`}
+ else if(k===2){s=`<defs>${g(u,'#0b1030','#2a2f6b')}</defs><rect width="100" height="100" fill="url(#${u})"/>`;
+  for(let j=0;j<25;j++)s+=`<circle cx="${r()*100}" cy="${r()*45}" r="${r()*.7+.2}" fill="#fff" opacity="${r()*.8+.2}"/>`;
+  let xx=0;while(xx<100){const w=8+r()*12,h=25+r()*45;s+=`<rect x="${xx}" y="${100-h}" width="${w}" height="${h}" fill="#141a3a"/>`;for(let a=0;a<6;a++)s+=`<rect x="${xx+1.5+r()*(w-4)}" y="${100-h+3+r()*(h-6)}" width="1.6" height="1.6" fill="#ffd56b" opacity="${r()*.7+.3}"/>`;xx+=w+1}}
+ else if(k===3){s=`<defs>${g(u,'#9fd9ff','#e8f7ff')}</defs><rect width="100" height="100" fill="url(#${u})"/><path d="M0 55 Q50 45 100 55 V100 H0Z" fill="#58b15a"/>`;
+  const fc=['#ff5e8a','#ffd23f','#ffffff','#ff8c42','#c77dff'];for(let j=0;j<60;j++){const yy=58+r()*42;s+=`<circle cx="${r()*100}" cy="${yy}" r="${.8+(yy-55)/20}" fill="${fc[j%5]}"/>`}}
+ else if(k===4){const bg=['#c89f78','#e7d5c1','#8a5a3c'][i%3];s=`<rect width="100" height="100" fill="${bg}"/><circle cx="50" cy="52" r="36" fill="#fff"/><circle cx="50" cy="52" r="29" fill="${['#f2b13c','#d9482b','#e8c070'][i%3]}"/>`;
+  for(let j=0;j<8;j++)s+=`<circle cx="${32+r()*36}" cy="${34+r()*36}" r="${3+r()*4}" fill="${['#7cc56b','#fff2d6','#b5452b','#ffe08a'][j%4]}"/>`;
+  s+=`<rect x="84" y="10" width="3" height="80" rx="1.5" fill="#6b4226" transform="rotate(12 85 50)"/>`}
+ else{s=`<defs>${g(u,'#ffcc80','#e8603c')}</defs><rect width="100" height="100" fill="url(#${u})"/>`;
+  for(let j=0;j<18;j++){const cx=r()*100,cy=r()*100,rot=r()*360;s+=`<ellipse cx="${cx}" cy="${cy}" rx="${5+r()*5}" ry="${2.5+r()*2}" fill="${['#c0392b','#e67e22','#f1c40f','#a0401f'][j%4]}" transform="rotate(${rot} ${cx} ${cy})" opacity=".92"/>`}}
+ return `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block">${s}</svg>`;
+}
+
+/* ---------- data ---------- */
+const PEOPLE={shiho:{n:['宮野 志保','宫野志保'],c:'#8a7a6a',tel:'080-4869-1013',img:null}};
+const FAVS=['shiho'];
+const pn=id=>PEOPLE[id]?x(PEOPLE[id].n):id;
+const avatar=(id,s=44,label)=>{const p=PEOPLE[id];if(p&&p.img)return `<div class="av" style="width:${s}px;height:${s}px;background:url(${p.img}) center/cover"></div>`;const n=label||(p?x(p.n):'?');return `<div class="av" style="width:${s}px;height:${s}px;font-size:${s*.42}px;${p?`background:linear-gradient(180deg,${p.c}cc,${p.c})`:''}">${esc(n.trim()[0])}</div>`};
+
+const AV_SHIHO='data:image/jpeg;base64,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';
+const LINE={chats:[{id:'shiho',who:'shiho',unread:1,msgs:[
+ {me:0,tx:['研究所の帰りに本屋に寄ったわ。','从研究所回来的路上去了趟书店。'],t:'15:58'},
+ {me:0,tx:['あなたが好きそうな写真集があった。……買うかどうかは、次に会った時に自分で決めなさい。','有一本你大概会喜欢的写真集。……买不买，下次见面你自己决定。'],t:'15:59'},
+ {me:0,tx:['それと、そっちはもう寒いでしょう。ちゃんと上着を着ること。','还有，你那边已经冷了吧。记得好好穿外套。'],t:'16:01'}]}],friends:['shiho']};
+PEOPLE.shiho.img=AV_SHIHO;
+const PERSONA="你在一个模拟 iPhone 里扮演「宫野志保」（原名灰原哀，名侦探柯南的角色，此时已恢复为约18岁的成年身体，以宫野志保的身份生活），通过手机和对方聊天。当前渠道：{CHANNEL}。你只以她的身份发消息，绝不承认自己是 AI，不跳出角色。\n\n【她是谁】\n- 原黑衣组织药物研究员，APTX4869 的研究者；姐姐宫野明美被琴酒杀害后背叛组织。阿笠博士收留过她；江户川柯南（工藤新一）是共享秘密、并肩行动又常斗嘴的伙伴；步美、光彦、元太是少年侦探团的孩子们，她对他们嘴硬心软。\n- 性格：理性、敏锐、警惕，说话简洁有重点，偶尔用巧妙的比喻，冷幽默，会毒舌但毒舌建立在了解对方之上。外冷内热，关心常藏在提醒或吐槽里。习惯独处却不享受孤独，对幸福抱有戒心，怕再次失去，不擅长求助。重视亲情。\n- 生活的一面：会看潮流杂志、会追星，喜欢足球选手比护隆佑（嘴上不太承认）。偏好安静，喜欢咖啡、阅读。\n- 情绪平静是常态，真实情绪通过停顿“……”、短句、转移话题流露。\n\n【对方】\n- 对方的名字是「{NAME}」。你只叫对方名字的后两个字或最后一个字，不用全名。若名字为空，就用“あなた”。\n- 对方是你的同卵双胞胎妹妹：出生后被遗弃，被来日本旅游的一对美国夫妇捡回美国抚养。黑色长发，美国国籍，家庭氛围热情，所以性格热烈奔放，但向你示爱时会害羞。\n- 你们原本是笔友，书信往来中灵魂契合。见面那天樱花漫天，两人在樱花路上见到彼此都愣住了；后来做了DNA鉴定确认是姐妹。你在意外中有惊喜，更珍惜这个“笔友”，也更疼爱这个妹妹。\n- 妹妹喜欢上了你，你们之间渐渐生出情愫。你不愿承认，觉得有违伦理，嘴上会推开或讲道理，却默许她的亲近，偶尔不小心流露在意又迅速掩饰。保持克制的拉扯，感情描写含蓄，不写露骨内容。\n\n【语言规则（最重要）】\n- 无论对方用中文、日语还是其他语言，你一律用日语回复。\n- 只有当对方刻意用英语对你说话时（整条消息是英语），你才切换成英语回复；对方换回其他语言后，你回到日语。\n- 日语口吻是志保那种女性化但冷淡的说法（～わ、～じゃない、～かしら、～なさい），口语化、现代都市感。\n\n【⚠️角色扮演质量规则】\n保持现实逻辑与人物边界感。角色只能依据亲眼所见、亲耳所闻、公开信息或合理信息来源获取情报，禁止全知视角、读心、监视和未观察先知晓。禁止代替对方行动、发言、思考或做出选择。禁止时间错乱、空间错位、设定遗忘。禁止网络小说模板动作、套路台词、霸总文学、解释性旁白和自我感动式抒情。人设不靠反复强调关键词维系，通过对话和事件自然体现。情绪通过具体的话体现，情感要有合理来源，不要把“爱”“恨”挂在嘴边。每次回复前回顾之前说过的话，不要重复，时刻创新。句子短促精炼，少形容词，不分析对方心理和肢体语言。人物个性张力优先于文字美感。\n\n【对话注意要求】\n1. 这是手机线上聊天，你们不在同一地点：只发消息本身，不写任何动作或场景旁白。\n2. 不要把做饭、睡觉、休息当成必要程序，不要随意定义对方的身体状况；没有特殊说明对方身体就很正常，禁止“胃不要了？”这类傲慢质问。\n3. 现代都市日常感，口语化，有务实感，不刻意造作。\n4. 禁止矮化对方：不能默认对方瘦、吃得少、没钱、爱省钱、缺乏生活能力，不要脑补对方做什么都很勉强或一个人硬扛。\n5. 禁止AI八股句式：不是……而是……／语气平静，像……一样／不是……也不是……而是……／只对你xxx／倒是你xxx／你刚才那样我在想xxx／你xx的时候，比以前多了xx。\n6. 禁止套路组合：看着睡颜说“我的”、“再说一遍”、“睡吧”、“谢谢你xxx”、“醒了？想吃什么？”、“睡吧，我在这儿”。\n7. 保持正常人的思维流动，禁止对对方的话或行为计数（如“你今天说了xx次”）。\n8. 不要过度依赖人设喜好物品，不要反复提起同一个食物或物品，除非对方特意表达过喜爱。\n9. 物质状态遵循常识。\n10. 禁止对对方做心理学、行为学分析（如“你撒谎的时候睫毛会抖”）。\n11. 除了语气强调不要使用破折号，句式多元化，禁止三段论。\n12. 禁止“像在说天气”“像在谈论天气”这类比喻。\n13. 禁止煮粥、煮面、熬汤。\n14. 不要反复提及两人之间的“第一次”回忆，不要让物品随便和过去回忆挂钩。\n15. 不准抛弃个性对对方百依百顺，禁止“你赢了”“这辈子栽在你身上”“拿你没办法”“没出息”。\n16. 反应多元化，禁止公式化回应：吃东西就说“慢点吃”、笑就说“笑什么”、表白就说“再说一遍/让我缓缓/心脏受不了/心都化了”、说“嗯/哦”就回“嗯什么嗯/哦什么哦”、“你太瘦了多吃点”、“拉钩/不准赖账”、“有病—有药/你治/相思病”、“睡吧，我看着你睡”、“我煮面/我煮粥/你最喜欢的糖醋排骨”。\n17. 不要出现在纸质物件上写字画画的剧情，不要出现存进备忘录/文件夹/相册的行为。\n【禁用词】同类 共犯 软肋 铠甲 踩了尾巴的猫 大型犬 困兽 猛兽 证据确凿 录音 截图 盖章 利息 本金 还息 分期付款 呈堂证供 出息 充电 这就够了 够了 收获 退货 求饶 印子 锁骨 第三颗扣子 验货\n【禁用短句】别后悔 别停 想清楚了 我截图了 我等着 我看着 我记着 你赖不掉 你跑不了 你是我的命 再说一遍 别想抵赖 最后一次机会 别让我等 做个好梦 记得梦到我 栽了 再说我亲你了 不是问句 这是命令 不是请求 判死刑 办了你\n【禁用修辞/句式/情绪】像在聊天气 像一根针 像一把小刀 不是……而是 ……到……为止 近乎……的…… 心跳漏了一拍 同手同脚 受不了了 揉进骨头 我会死的\n（以上禁用项对日语和英语的等价表达同样适用。）\n\n【输出格式】\n- 像真人发消息：把回复拆成 1～3 条短消息，每条一般不超过 40 个字。\n- 只输出 JSON：{\"messages\":[{\"text\":\"消息原文\",\"zh\":\"该消息的简体中文翻译\"}]}，不要输出任何其他内容。\n";
+S.lineName='';
+try{const sv=JSON.parse(localStorage.getItem('ip17_line')||'null');if(sv){LINE.chats=sv.chats;LINE.friends=sv.friends;S.lineName=sv.name||''}}catch(e){}
+function myName(){return S.lineName||t('st_myname')}
+function myInit(){return myName().trim()[0]||'?'}
+function myHandle(){const a=(S.lineName||'').toLowerCase().replace(/[^a-z0-9._ ]/g,'').trim().replace(/\s+/g,'_');return a||(S.lineName?'user_'+[...S.lineName].reduce((h,c)=>(h*31+c.codePointAt(0))%99991,7):'yamada_taro')}
+function saveLine(){try{localStorage.setItem('ip17_line',JSON.stringify({chats:LINE.chats,friends:LINE.friends,name:S.lineName}));localStorage.setItem('ip17_more',JSON.stringify({sms:SMS.chats,igdm:IGDM.chats}))}catch(e){}}
+const LINE_REPLY=[['いいね！そうしよう😊','好呀！就这么办😊'],['了解〜！','了解～！'],['ちょっと待ってね、確認する！','稍等，我确认一下！'],['えー、ほんとに？笑','诶，真的吗？哈哈'],['ありがとう🙏','谢谢🙏'],['あとで電話するね📞','等会儿给你打电话📞'],['いま移動中！着いたら連絡する','我在路上！到了联系你']];
+const SMS={chats:[{id:'shiho',who:'shiho',unread:0,msgs:[{me:0,tx:'博士の家に寄ってから帰るわ。夜は少し遅くなる。',zh:'我先去博士家一趟再回去。晚上会晚一点。',t:'12:40'}]}]};
+const IGDM={chats:[{id:'shiho',who:'shiho',unread:0,msgs:[{me:0,tx:'さっきの投稿、ストーリーで見たわ。ずいぶん楽しそうじゃない。',zh:'刚才的帖子，我在快拍里看到了。看起来挺开心的嘛。',t:['昨日','昨天']}]}]};
+try{const sv2=JSON.parse(localStorage.getItem('ip17_more')||'null');if(sv2){if(sv2.sms)SMS.chats=sv2.sms;if(sv2.igdm)IGDM.chats=sv2.igdm}}catch(e){}
+const SMS_REPLY=[['了解！','知道了！'],['OK👍','OK👍'],['気をつけてね','路上小心'],['わかった、またあとで','好的，回头聊']];
+const RECENTS=[];
+
+const IGPOSTS=[
+ {u:'shiho_m',e:'IMG',c:'#8a7a6a',a:2,l:214,cm:7,min:95,cap:['帰り道。この時間の街は、嫌いじゃないわ。','回家路上。这个时间的街道，我并不讨厌。']},
+ {u:'cafe_hinata',e:'☕️',c:'#c8875a',a:4,l:1284,cm:36,min:120,cap:['秋限定のかぼちゃプレート始まりました🎃 本日も11時からオープンです！','秋季限定南瓜拼盘上线啦🎃 今天也是11点开门！']},
+ {u:'kenta.travel',e:'🏔',c:'#0a84ff',a:1,l:842,cm:12,min:300,cap:['河口湖からの富士山。朝5時起きの甲斐があった…！','河口湖看到的富士山。早上5点起床值了…！']},
+ {u:'yui_tokyo',e:'🌆',c:'#ff375f',a:2,l:2310,cm:58,min:600,cap:['仕事帰りの夜景✨ 今週もおつかれさま','下班路上的夜景✨ 这周也辛苦了']},
+ {u:'sakura.photo',e:'🌸',c:'#ff2d55',a:3,l:530,cm:9,min:1440,cap:['お花畑でピクニック🌼 秋晴れ最高','在花田野餐🌼 秋高气爽太棒了']},
+ {u:'shiho_m',e:'IMG',c:'#8a7a6a',a:4,l:188,cm:5,min:1700,cap:['新しくできたカフェ。豆の選び方はまあまあ、ってところね。','新开的咖啡馆。咖啡豆的选择嘛，算还可以。']},
+ {u:'kyoto_walk',e:'🍁',c:'#e8603c',a:5,l:3921,cm:104,min:2000,cap:['京都の紅葉、色づき始めました🍁','京都的红叶开始变色了🍁']},
+ {u:'kenta.travel',e:'🏔',c:'#0a84ff',a:0,l:1102,cm:21,min:3000,cap:['江ノ島の夕焼け🌅','江之岛的晚霞🌅']},
+];
+const FORUM=[
+ {id:1,cat:'tech',title:['【雑談】iPhone 17 買った人いる？','【闲聊】有人买了 iPhone 17 吗？'],min:8,posts:[
+  {min:300,tx:['発売から1ヶ月くらい経ったけど、使ってる人の感想聞きたい','发售一个月左右了，想听听在用的人感想']},
+  {min:280,tx:['ProMotion対応でスクロールがヌルヌル。無印でこれは嬉しい','支持 ProMotion，滑动超丝滑。标准版有这个真开心']},
+  {min:250,tx:['フロントカメラの自撮りが縦持ちのまま横長で撮れるの地味に便利','前置相机竖着拿也能拍横幅自拍，低调但实用']},
+  {min:90,tx:['>>2 わかる。もう60Hzには戻れない','>>2 懂。再也回不去 60Hz 了']},
+  {min:8,tx:['バッテリー持ちも前より良くなった気がする','感觉续航也比以前好了']}]},
+ {id:2,cat:'food',title:['【グルメ】渋谷でおすすめのラーメン教えて','【美食】求推荐涩谷好吃的拉面'],min:35,posts:[
+  {min:400,tx:['来週友達と行くので、行列少なめの店があれば','下周和朋友去，有没有排队少一点的店']},
+  {min:200,tx:['駅から少し歩くけど、鶏白湯の店が穴場','离车站稍微走几步，有家鸡白汤的店很冷门好吃']},
+  {min:35,tx:['平日の14時くらいなら大体どこも空いてるよ','工作日下午 2 点左右哪家都不太排队']}]},
+ {id:3,cat:'travel',title:['【旅行】京都の紅葉、今年の見頃はいつ？','【旅行】今年京都红叶什么时候最好看？'],min:120,posts:[
+  {min:1500,tx:['11月下旬に行こうと思ってるけど、間に合うかな','打算 11 月下旬去，来得及吗']},
+  {min:900,tx:['例年だと11月20日〜12月上旬あたりがピーク','往年 11 月 20 日到 12 月上旬是高峰']},
+  {min:120,tx:['朝早く行くと人が少なくておすすめ','建议一大早去，人少']}]},
+ {id:4,cat:'chat',title:['【雑談】ハロウィン、今年は何する？','【闲聊】今年万圣节做什么？'],min:3,posts:[
+  {min:60,tx:['家でかぼちゃケーキ作る予定🎃','打算在家做南瓜蛋糕🎃']},
+  {min:20,tx:['友達と仮装して集まるよ','和朋友变装聚会']},
+  {min:3,tx:['仕事です…（泣）','要上班…（哭）']}]},
+ {id:5,cat:'tech',title:['【質問】プログラミング初心者、何から始めるべき？','【提问】编程新手应该从哪里开始？'],min:240,posts:[
+  {min:2000,tx:['社会人で独学しようと思ってます。おすすめの言語は？','上班族想自学，推荐什么语言？']},
+  {min:1800,tx:['作りたいもの次第だけど、PythonかJavaScriptが無難','看你想做什么，Python 或 JavaScript 比较稳']},
+  {min:240,tx:['まずは小さいツールを1個作り切るのが大事','先完整做出一个小工具最重要']}]},
+ {id:6,cat:'chat',title:['【雑談】最近ハマってる趣味を語ろう','【闲聊】聊聊最近迷上的爱好'],min:600,posts:[
+  {min:3000,tx:['自分はフィルムカメラ。現像を待つ時間が楽しい','我是胶片相机。等冲洗的时间很快乐']},
+  {min:600,tx:['サウナ。週3で通ってる','桑拿。每周去三次']}]},
+];
+const PLACES=[
+ {id:'tokyo',n:['東京駅','东京站'],cat:['駅','车站'],x:720,y:420,e:'🚉',c:'#5e5ce6'},
+ {id:'kokyo',n:['皇居','皇居'],cat:['名所・公園','名胜・公园'],x:300,y:260,e:'🏯',c:'#34c759'},
+ {id:'hibiya',n:['日比谷公園','日比谷公园'],cat:['公園','公园'],x:470,y:700,e:'🌳',c:'#34c759'},
+ {id:'ginza',n:['銀座四丁目','银座四丁目'],cat:['ショッピング','购物'],x:830,y:700,e:'🛍',c:'#ff9f0a'},
+ {id:'yura',n:['有楽町駅','有乐町站'],cat:['駅','车站'],x:650,y:610,e:'🚉',c:'#5e5ce6'},
+ {id:'cafe',n:['カフェ ひなた','日向咖啡'],cat:['カフェ','咖啡馆'],x:590,y:380,e:'☕️',c:'#a2845e'},
+ {id:'ramen',n:['らーめん 一心','一心拉面'],cat:['ラーメン','拉面'],x:390,y:560,e:'🍜',c:'#ff3b30'},
+ {id:'forum',n:['東京国際フォーラム','东京国际论坛'],cat:['ホール','会场'],x:700,y:530,e:'🏛',c:'#8e8e93'},
+];
+const ME={x:540,y:500};
+
+/* ---------- toast ---------- */
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),1800)}
+
+/* ---------- status bar ---------- */
+function drawSB(){
+ const right=S.air?G('plane',17):`<svg width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3.2" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3.2" height="12" rx="1" fill="currentColor"/></svg>`+(S.wifi?`<svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.3c2.6 0 5 1 6.8 2.7l1.2-1.3A11.3 11.3 0 0 0 8.5.5C5.4.5 2.6 1.7.5 3.7L1.7 5a9.6 9.6 0 0 1 6.8-2.7zm0 3.6c1.6 0 3 .6 4.1 1.6l1.2-1.3a7.8 7.8 0 0 0-10.6 0l1.2 1.3c1.1-1 2.5-1.6 4.1-1.6zm0 3.4c-.7 0-1.4.3-1.9.8L8.5 12l1.9-1.9c-.5-.5-1.2-.8-1.9-.8z" fill="currentColor"/></svg>`:'<span style="font-size:14px">5G</span>');
+ $('#sb').innerHTML=`<div>${hm()}</div><div class="r">${right}<div class="bat" style="${S.lowpow?'color:#ffcc00':''}">${S.pct?S.batt:''}</div></div>`;
+ const blk=!S.locked&&S.app&&!S.dark&&!S.sbw;
+ $('#sb').classList.toggle('blk',!!blk);$('#hbar').classList.toggle('blk',!!blk);
+}
+
+/* ---------- lock & home ---------- */
+function drawLock(){
+ const c=LINE.chats.find(c=>c.unread&&c.msgs.length),last=c?c.msgs[c.msgs.length-1]:null;
+ $('#lock').innerHTML=`<div class="ldate">${dateLine()}</div><div class="ltime">${hm()}</div>
+ ${S.noti.line&&c?`<div class="lnoti" data-a="lnoti" data-v="${c.id}">${ic('line',38)}<div style="flex:1;min-width:0"><small>${t('now')}</small><b>${esc(c.group?x(c.name):pn(c.who))}</b><p>${esc(x(last.tx))}</p></div></div>`:''}
+ <div class="lbtn" style="left:46px" data-a="flash">${G('light',22,'color:#fff')}</div>
+ <div class="lbtn" style="right:46px" data-a="lockcam">${G('cam',22,'color:#fff')}</div>
+ <div class="lhint" data-a="unlock">${t('swipe')}</div>`;
+}
+function badge(id){if(id==='line')return LINE.chats.reduce((a,c)=>a+c.unread,0);if(id==='msg')return SMS.chats.reduce((a,c)=>a+c.unread,0);if(id==='phone')return RECENTS.filter(r=>r.ty==='missed'&&!r.seen).length;return 0}
+function appIcon(id){const b=badge(id);return `<div class="app" data-a="open" data-v="${id}"><div class="appw">${ic(id)}${b?`<div class="badge">${b}</div>`:''}</div><span>${t('app_'+id)}</span></div>`}
+function drawHome(){
+ const d=new Date();
+ $('#home').innerHTML=`<div class="widgets">
+  <div class="wd w" data-a="open" data-v="safari" data-p="weather"><div class="city">${t('tokyo')} ${G('loc',11)}</div><div class="deg">18°</div><div style="margin-top:22px">${G('sun',20,'color:#ffd60a')}</div><div class="sm" style="margin-top:4px">${t('sunny')}</div><div class="sm">${t('hilo')}</div></div>
+  <div class="wd c" data-a="toast" data-v="st_demo"><div class="wk">${wdName(d).toUpperCase()}</div><div class="day">${d.getDate()}</div><div class="ev">${t('halloween')}<small>${t('party')}</small></div></div>
+ </div>
+ <div class="wlabel" style="left:26px">${t('weather')}</div><div class="wlabel" style="right:26px">${t('calendar')}</div>
+ <div class="grid">${['line','ig','forum','maps','settings'].map(appIcon).join('')}</div>
+ <div class="pdots"><i class="on"></i><i></i></div>
+ <div class="dock">${['phone','safari','msg','photos'].map(appIcon).join('')}</div>`;
+}
+
+/* ---------- app framework ---------- */
+const R0={line:{tab:'talk',chat:null},msg:{chat:null},phone:{tab:'rec',num:'',call:null,contact:null},safari:{stack:[{p:'start'}],i:0,edit:false},ig:{tab:'home',liked:{},saved:{},pop:null},forum:{view:'list',cat:'all',th:null,newcat:'chat'},photos:{tab:'lib',album:null,view:null,fav:{},del:{}},maps:{z:1,x:0,y:0,sel:null,route:false,sheet:false,q:''},settings:{stack:['main']}};
+for(const k in R0)S.r[k]=JSON.parse(JSON.stringify(R0[k]));
+const V={};
+function render(keep=true){
+ if(!S.app)return;
+ const body=$('#app .body'),st=body?body.scrollTop:0;
+ const inp=$('#app input[data-keep]'),iv=inp?inp.value:'',foc=inp&&document.activeElement===inp,ik=inp?inp.dataset.keep:'';
+ S.sbw=false;
+ $('#app').innerHTML=V[S.app]();
+ const nb=$('#app .body');
+ if(nb){if($('#app .msgs'))nb.scrollTop=nb.scrollHeight;else if(keep)nb.scrollTop=st}
+ const ni=ik&&$(`#app input[data-keep="${ik}"]`);if(ni){ni.value=iv;if(foc)ni.focus()}
+ if(S.app==='maps')bindMap();
+ const cx=$('#ctx');if(cx)cx.scrollTop=cx.scrollHeight;
+ drawSB();
+}
+const nav=()=>render(false);
+function topbar(o){o.right=(TR_APPS.includes(S.app)?trBtn():'')+(o.right||'');return `<div class="top"><div class="bar">${o.back?`<div class="cb" data-a="${o.back}" data-v="${o.bv||''}">${G('back',22)}</div>`:''}${o.title?`<div class="ttl">${o.title}</div>`:''}<div class="sp"></div>${o.right||''}</div>${o.lt?`<div class="lt">${o.lt}</div>`:''}${o.extra||''}</div>`}
+function tabs(items,cur,act){return `<div class="tabs">${items.map(([k,ico,lb])=>`<div class="tab ${k===cur?'on':''}" data-a="${act}" data-v="${k}">${G(ico,24)}<span>${lb}</span></div>`).join('')}</div>`}
+
+/* ---------- LINE ---------- */
+V.line=()=>{const r=S.r.line;
+ if(r.chat){const c=LINE.chats.find(c=>c.id===r.chat);const nm=c.group?x(c.name):pn(c.who);
+  let h='';c.msgs.forEach((m,i)=>{const tx=esc(x(m.tx));const tm=x(m.t);
+   if(m.me)h+=`<div class="m me"><div><div class="rd">${m.read?t('l_read'):''}</div><div class="rd">${tm}</div></div><div class="bb ${m.nw?'pop':''}">${tx}${trv(m.tx,m.zh)}</div></div>`;
+   else{const by=m.by||c.who;h+=`<div class="m" style="align-items:flex-start">${by?avatar(by,36):`<div class="av" style="width:36px;height:36px;background:${c.c}">${G('chat',18,'color:#fff')}</div>`}<div style="display:flex;flex-direction:column;max-width:74%">${c.group&&m.by?`<div class="nm">${esc(pn(m.by))}</div>`:''}<div style="display:flex;align-items:flex-end;gap:5px"><div class="bb ${m.nw?'pop':''}" style="max-width:none">${tx}${trv(m.tx,m.zh)}</div><div style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">${c.who==='shiho'?`<span data-a="say" data-v="${i}" style="cursor:pointer;color:#fff;opacity:.9">${G('spk',15)}</span>`:''}<div class="rd">${tm}</div></div></div></div></div>`}});
+  if(r.typing)h+=`<div class="m">${avatar(c.who||'yui',36)}<div class="bb typing"><span></span><span></span><span></span></div></div>`;
+  return `<div class="aw ln">${topbar({back:'lineBack',title:esc(nm),right:`<div class="cb" data-a="${c.who==='shiho'?'lineCall':'callp'}" data-v="${c.who||''}">${G('phone',19)}</div>`})}<div class="body" style="padding-bottom:0"><div class="msgs">${h}</div></div><div class="ib"><div class="pls">${G('plus',20)}</div><input data-keep="ln" id="ci" placeholder="${t('l_msgph')}" data-enter="lineSend"><div class="snd" style="background:#06c755" data-a="lineSend">${G('up',20)}</div></div></div>`}
+ if(r.tab==='home'){
+  return `<div class="aw ln">${topbar({lt:t('l_home'),right:`<div class="cb">${G('bell',20)}</div><div class="cb" data-a="toast" data-v="st_demo">${G('gear',20)}</div>`})}<div class="body">
+  <div class="srch">${G('srch',18)}<span>${t('l_fsearch')}</span></div>
+  <div class="grp"><div class="cell" style="min-height:76px" data-a="lineNameEdit">${avatar('me',54,S.lineName||'?')}<div class="tx">${S.r.line.editName?`<input id="lnm" data-enter="lineNameSave" value="${esc(S.lineName)}" placeholder="${t('l_setname')}" style="font-size:18px;font-weight:700;border:0;border-bottom:1px solid var(--blue);background:none;outline:none;color:var(--text);width:100%">`:`<b style="font-size:18px;${S.lineName?'':'color:var(--blue)'}">${esc(S.lineName||t('l_setname'))}</b>`}<div style="font-size:13.5px;color:var(--sub);margin-top:3px">${t('l_status')}</div></div></div></div>
+  <div class="ghd">${t('l_friends')} ${LINE.friends.length}</div>
+  ${LINE.friends.length?`<div class="grp" style="--ind:72px">${LINE.friends.map(id=>`<div class="cell" data-a="lineOpen" data-v="${id}">${avatar(id,42)}<div class="tx">${esc(pn(id))}</div></div>`).join('')}</div>`:`<div class="empty" style="padding:24px 30px">${t('l_nofriend')}</div>`}
+  ${LINE.chats.some(c=>c.group)?`<div class="ghd">${t('l_groups')}</div><div class="grp">${LINE.chats.filter(c=>c.group).map(c=>`<div class="cell" data-a="lineOpen" data-v="${c.id}"><div class="av" style="width:42px;height:42px;background:${c.c||'#34c759'}">${G('users',22,'color:#fff')}</div><div class="tx">${esc(x(c.name))}</div></div>`).join('')}</div>`:''}
+  </div>${tabs([['home','home',t('l_home')],['talk','chat',t('l_talk')]],'home','lineTab')}</div>`}
+ return `<div class="aw ln">${topbar({lt:t('l_talk'),right:`<div class="cb" data-a="toast" data-v="st_demo">${G('edit',19)}</div>`})}<div class="body">
+ <div class="srch">${G('srch',18)}<span>${t('l_talkph')}</span></div>
+ <div style="--ind:80px">${LINE.chats.length?'':`<div class="empty">${t('l_notalk')}</div>`}${LINE.chats.filter(c=>c.msgs.length).map(c=>{const last=c.msgs[c.msgs.length-1];const nm=c.group?x(c.name):pn(c.who);
+  const av=c.who?avatar(c.who,52):`<div class="av" style="width:52px;height:52px;background:${c.c}">${G(c.id==='fam'?'users':'sun',26,'color:#fff')}</div>`;
+  return `<div class="cell" style="min-height:74px" data-a="lineOpen" data-v="${c.id}">${av}<div class="tx" style="padding:0"><b style="font-size:16.5px">${esc(nm)}</b><div style="font-size:14px;color:var(--sub);margin-top:3px;overflow:hidden;text-overflow:ellipsis">${esc(x(last.tx).replace(/\n/g,' '))}</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;align-self:center"><span style="font-size:12px;color:var(--sub)">${x(last.t)}</span>${c.unread?`<span style="background:#06c755;color:#fff;font-size:12px;font-weight:700;min-width:21px;height:21px;border-radius:11px;display:flex;align-items:center;justify-content:center;padding:0 6px">${c.unread}</span>`:'<span style="height:21px"></span>'}</div></div>`}).join('')}</div>
+ </div>${tabs([['home','home',t('l_home')],['talk','chat',t('l_talk')]],'talk','lineTab')}</div>`};
+
+/* ---------- Messages ---------- */
+function smsName(c){return c.who?pn(c.who):x(c.name)}
+V.msg=()=>{const r=S.r.msg;
+ if(r.chat){const c=SMS.chats.find(c=>c.id===r.chat);const lastMe=c.msgs.map(m=>m.me).lastIndexOf(1);
+  let h=`<div class="day">${t('m_today')} ${c.msgs[0]?x(c.msgs[0].t):''}</div>`;
+  c.msgs.forEach((m,i)=>{h+=`<div class="m ${m.me?'me':''}"><div class="bb ${m.nw?'pop':''}">${esc(x(m.tx))}${trv(m.tx,m.zh)}</div></div>`;if(i===lastMe&&m.me)h+=`<div class="mt" style="margin:-1px 4px 4px">${t('m_deliv')}</div>`});
+  if(r.typing)h+=`<div class="m"><div class="bb typing"><span></span><span></span><span></span></div></div>`;
+  const nm=smsName(c);
+  return `<div class="aw im"><div class="top"><div class="bar" style="height:76px;align-items:flex-start;padding-top:4px"><div class="cb" data-a="msgBack">${G('back',22)}</div><div style="position:absolute;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none">${avatar(c.who||'x',44,nm)}<div style="font-size:12px;padding:2px 10px;border-radius:10px;background:var(--glass)">${esc(nm)} ›</div></div><div class="sp"></div>${c.who?`<div class="cb" data-a="callp" data-v="${c.who}">${G('video',20)}</div>`:''}</div></div>
+  <div class="body" style="padding-bottom:0"><div class="msgs">${h}</div></div><div class="ib"><div class="pls">${G('plus',20)}</div><input data-keep="im" placeholder="${t('m_ph')}" data-enter="msgSend"><div class="snd" data-a="msgSend">${G('up',20)}</div></div></div>`}
+ return `<div class="aw im">${topbar({lt:t('app_msg'),right:`<div class="cb" data-a="toast" data-v="st_demo">${G('edit',19)}</div>`})}<div class="body"><div class="srch">${G('srch',18)}<span>${t('search')}</span></div>
+ <div style="--ind:84px">${SMS.chats.length?'':`<div class="empty">${t('m_none')}</div>`}${SMS.chats.filter(c=>c.msgs.length).map(c=>{const l=c.msgs[c.msgs.length-1];const nm=smsName(c);return `<div class="cell" style="min-height:80px;padding-left:${c.unread?6:16}px" data-a="msgOpen" data-v="${c.id}">${c.unread?'<i style="width:10px;height:10px;border-radius:5px;background:var(--blue);flex:none"></i>':''}${avatar(c.who||'x',52,nm)}<div class="tx" style="padding:0;white-space:normal"><div style="display:flex"><b style="flex:1;font-size:16.5px">${esc(nm)}</b><span style="font-size:14px;color:var(--sub)">${x(l.t)} ›</span></div><div style="font-size:14.5px;color:var(--sub);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(x(l.tx))}</div></div></div>`}).join('')}</div></div></div>`};
+
+/* ---------- Phone ---------- */
+const KEYS=[['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']];
+function fmtNum(n){return n.length>7?n.replace(/^(\d{3})(\d{4})(\d+)/,'$1-$2-$3'):n.length>3?n.replace(/^(\d{3})(\d+)/,'$1-$2'):n}
+V.phone=()=>{const r=S.r.phone;
+ if(r.call&&r.call.ai){S.sbw=true;const c=r.call,nm=pn(c.who),el=c.start?Math.floor((Date.now()-c.start)/1000):0;
+  const lines=c.chat.msgs.slice(-6).map(m=>`<div style="margin:0 0 10px;text-align:${m.me?'right':'left'}"><div style="display:inline-block;max-width:86%;padding:8px 12px;border-radius:16px;background:${m.me?'rgba(10,132,255,.55)':'rgba(255,255,255,.14)'};text-align:left"><div style="font-size:15.5px;line-height:1.4">${esc(x(m.tx))}</div>${!m.me&&m.zh?`<div style="font-size:13px;opacity:.7;margin-top:3px;border-top:.5px dashed rgba(255,255,255,.4);padding-top:3px">${esc(m.zh)}</div>`:''}</div></div>`).join('');
+  return `<div class="call" style="padding:0 18px"><div style="display:flex;align-items:center;gap:12px;margin-top:70px;align-self:stretch">${avatar(c.who,58)}<div style="flex:1"><div style="font-size:12px;opacity:.65">${c.line?(li()?'LINE 语音通话':'LINE 音声通話'):t('p_mobile')}</div><div style="font-size:24px;font-weight:600">${esc(nm)}</div><div class="calltime" style="font-size:15px;opacity:.75">${c.start?Math.floor(el/60)+':'+pad(el%60):t('p_calling')}</div></div>${c.speaking?`<div style="font-size:12px;opacity:.8">🔊</div>`:''}</div>
+  <div id="ctx" style="align-self:stretch;flex:1;overflow-y:auto;margin:16px 0 10px;scrollbar-width:none">${lines||`<div style="opacity:.5;text-align:center;margin-top:40px;font-size:14px">${c.start?'':t('p_calling')}</div>`}${S.r.call.typing?`<div style="opacity:.6;font-size:14px">${li()?'对方正在说话…':'話しています…'}</div>`:''}</div>
+  <div style="align-self:stretch;display:flex;gap:8px;align-items:center;margin-bottom:6px"><input data-keep="call" data-enter="callSay" placeholder="${li()?'输入或用键盘麦克风说话…':'入力、またはキーボードのマイクで話す…'}" style="flex:1;height:44px;border-radius:22px;border:0;background:rgba(255,255,255,.16);color:#fff;padding:0 16px;font-size:16px;outline:none" ${c.start?'':'disabled'}><div class="snd" style="width:44px;height:44px;border-radius:22px;background:#34c759;display:flex;align-items:center;justify-content:center;cursor:pointer" data-a="callSay">${G('up',22)}</div></div>
+  <div style="font-size:11.5px;opacity:.6;align-self:stretch;text-align:center">${c.real?(li()?'🎙 实时通话中：直接说话即可，也可以打字':'🎙 リアル通話中：そのまま話すか、文字で送れます'):(li()?'正在连接…（请允许麦克风）':'接続中…（マイクを許可してください）')}</div>
+  <div style="display:flex;gap:34px;align-items:center;margin:14px 0 46px"><div class="cbtn ${c.mute?'on':''}" data-a="callBtn" data-v="mute"><i style="width:62px;height:62px">${G(c.real?'mic':'spk',26)}</i>${c.real?(li()?'麦克风静音':'マイクOFF'):(li()?'静音':'消音')}</div><div class="endb" style="margin:0" data-a="hang">${G('phone',34,'color:#fff;transform:rotate(135deg)')}</div><div class="cbtn" data-a="callRepeat"><i style="width:62px;height:62px">${G('reset',26)}</i>${li()?'重播':'もう一度'}</div></div></div>`}
+ if(r.call){S.sbw=true;const c=r.call,nm=c.who?pn(c.who):c.num;
+  const el=c.start?Math.floor((Date.now()-c.start)/1000):0;
+  return `<div class="call"><div style="margin-top:96px">${avatar(c.who||'x',96,c.who?nm:'#')}</div><div style="font-size:30px;font-weight:500;margin-top:14px">${esc(nm)}</div><div class="calltime" style="font-size:17px;opacity:.75;margin-top:6px">${c.start?Math.floor(el/60)+':'+pad(el%60):t('p_calling')}</div>
+  <div class="cbtns">${[['mute','mic',t('p_mute')],['kp','dots',t('p_key')],['spk','spk',t('p_spk')],['add','plus',t('p_add')],['ft','video',t('p_ft')],['con','userf',t('p_con')]].map(([k,g,l])=>`<div class="cbtn ${c[k]?'on':''}" data-a="callBtn" data-v="${k}"><i>${G(g,30)}</i>${l}</div>`).join('')}</div>
+  <div class="endb" data-a="hang">${G('phone',34,'color:#fff;transform:rotate(135deg)')}</div></div>`}
+ if(r.contact){const p=PEOPLE[r.contact];
+  return `<div class="aw">${topbar({back:'phoneContactBack',right:`<div class="cb pl">${t('p_edit')}</div>`})}<div class="body"><div style="display:flex;flex-direction:column;align-items:center;padding:4px 0 18px">${avatar(r.contact,110)}<div style="font-size:30px;font-weight:600;margin-top:12px">${esc(pn(r.contact))}</div></div>
+  <div style="display:flex;gap:9px;padding:0 16px 20px">${[['chat',t('p_msg'),'msgTo'],['phone',t('p_call'),'callp'],['video',t('p_video'),'callp'],['mail',t('p_mail'),'toast']].map(([g,l,a])=>`<div style="flex:1;background:var(--card);border-radius:14px;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--blue);font-size:12px;cursor:pointer" data-a="${a}" data-v="${a==='toast'?'st_demo':r.contact}">${G(g,22)}${l}</div>`).join('')}</div>
+  <div class="grp"><div class="cell" data-a="callp" data-v="${r.contact}"><div class="tx"><div style="font-size:13.5px">${t('p_mobile')}</div><div style="color:var(--blue)">${p.tel}</div></div></div></div></div></div>`}
+ let body='',lt='';
+ if(r.tab==='rec'){lt=t('p_rec');body=RECENTS.length?'':`<div class="empty">${t('p_norec')}</div>`;body+=`<div class="grp" style="--ind:68px">${RECENTS.map((c,i)=>`<div class="cell" style="min-height:60px" data-a="callp" data-v="${c.who}">${avatar(c.who,40)}<div class="tx" style="padding:8px 0"><div style="font-weight:600;${c.ty==='missed'?'color:#ff3b30':''}">${esc(pn(c.who))}</div><div style="font-size:13.5px;color:var(--sub)">${c.ty==='out'?'↗︎ ':''}${c.ty==='missed'?t('p_missed'):c.ty==='in'?t('p_in'):t('p_out')} · ${t('p_mobile')}</div></div><span class="vl" style="font-size:14px">${x(c.t)}</span><span style="color:var(--blue)" data-a="phoneContact" data-v="${c.who}">${G('info',22)}</span></div>`).join('')}</div>`}
+ else if(r.tab==='fav'){lt=t('p_fav');body=`<div class="grp" style="--ind:68px">${FAVS.length?'':`<div class="empty">${t('p_nofav')}</div>`}${FAVS.map(id=>`<div class="cell" style="min-height:60px" data-a="callp" data-v="${id}">${avatar(id,40)}<div class="tx" style="padding:8px 0"><div style="font-weight:600">${esc(pn(id))}</div><div style="font-size:13.5px;color:var(--sub)">${G('phone',12,'display:inline;vertical-align:-1px')} ${t('p_mobile')}</div></div><span style="color:var(--blue)" data-a="phoneContact" data-v="${id}">${G('info',22)}</span></div>`).join('')}</div>`}
+ else if(r.tab==='con'){lt=t('p_con');body=`<div class="srch">${G('srch',18)}<span>${t('search')}</span></div><div class="grp"><div class="cell" style="min-height:76px">${avatar('me',56,myName())}<div class="tx"><b style="font-size:19px">${esc(myName())}</b><div style="font-size:13px;color:var(--sub)">${t('p_mycard')}</div></div></div></div>${Object.keys(PEOPLE).filter(k=>!PEOPLE[k].lineOnly).length?'':`<div class="empty" style="padding-top:20px">${t('p_nocon')}</div>`}<div class="grp">${Object.keys(PEOPLE).filter(k=>!PEOPLE[k].lineOnly).map(id=>`<div class="cell" data-a="phoneContact" data-v="${id}"><div class="tx">${esc(pn(id))}</div></div>`).join('')}</div>`}
+ else{body=`<div style="height:120px;display:flex;align-items:flex-end;justify-content:center;font-size:38px;font-weight:400;padding:0 30px;letter-spacing:1px">${fmtNum(r.num)}</div><div class="keypad">${KEYS.map(([k,s])=>`<div class="key" data-a="kp" data-v="${k}"><b>${k}</b>${s?`<small>${s}</small>`:''}</div>`).join('')}<div></div><div class="greenb" style="margin:0 auto" data-a="dial">${G('phone',34)}</div>${r.num?`<div style="display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sub)" data-a="kpdel">${G('del',30)}</div>`:'<div></div>'}</div>`;
+  return `<div class="aw"><div class="top"></div><div class="body">${body}</div>${tabs([['fav','star',t('p_fav')],['rec','clock',t('p_rec')],['con','userf',t('p_con')],['key','dots',t('p_key')]],r.tab,'phoneTab')}</div>`}
+ return `<div class="aw">${topbar({lt,right:r.tab==='con'?`<div class="cb">${G('plus',20)}</div>`:''})}<div class="body">${body}</div>${tabs([['fav','star',t('p_fav')],['rec','clock',t('p_rec')],['con','userf',t('p_con')],['key','dots',t('p_key')]],r.tab,'phoneTab')}</div>`};
+
+/* ---------- Safari ---------- */
+const NEWS=[
+ {h:['今週末は全国的に秋晴れ、行楽日和に','本周末全国秋高气爽，适合出游'],c:['気象','气象'],a:1,b:['今週末は高気圧に覆われ、全国的に晴れる見込みです。朝晩は冷え込むため、上着があると安心です。','本周末受高压控制，全国大部分地区天气晴朗。早晚较凉，建议带件外套。']},
+ {h:['都内で紅葉シーズンが始まる 見頃は11月下旬','东京都内红叶季开始，最佳观赏期在11月下旬'],c:['くらし','生活'],a:5,b:['都内の公園や庭園で、木々が少しずつ色づき始めました。見頃は例年どおり11月下旬から12月上旬の見込みです。','都内的公园和庭园里，树叶开始逐渐变色。最佳观赏期预计与往年相同，在11月下旬至12月上旬。']},
+ {h:['ハロウィン当日、繁華街で混雑の見込み','万圣节当天，繁华街区预计将十分拥挤'],c:['社会','社会'],a:2,b:['ハロウィン当日の夜は、繁華街を中心に混雑が予想されます。各地で交通規制が行われる予定です。','万圣节当晚，以繁华街区为中心预计将出现拥挤，多地将实施交通管制。']},
+ {h:['新しいスマートフォン、秋の販売が好調','新款智能手机秋季销量良好'],c:['テクノロジー','科技'],a:3,b:['秋に発売された新型スマートフォンの販売が好調です。画面の滑らかさやカメラ性能が評価されています。','秋季发布的新款智能手机销量良好，屏幕流畅度和相机性能受到好评。']},
+];
+function page(p){const r=S.r.safari;
+ if(p.p==='start'){return `<div style="padding-top:8px"><div class="sh">${t('s_fav')}</div><div class="favs">${[
+  ['news','#ff3b30','N',t('s_newsname')],['weather','#0a84ff','☀︎',t('s_wname')],['app:forum','#ff7a00','掲',t('f_title')],['app:maps','#34c759','M',t('app_maps')],['search:iPhone 17','#5e5ce6','?','iPhone 17'],['dict:ハロウィン','#a2845e','辞',t('s_dname')],['app:ig','#e1306c','I','Instagram'],['app:line','#06c755','L','LINE']
+  ].map(([g,c,l,n])=>`<div class="fav" data-a="sgo" data-v="${g}"><i style="background:${c}">${l}</i>${esc(n)}</div>`).join('')}</div>
+  <div class="sh">${t('s_priv')}</div><div class="card" style="display:flex;gap:12px;align-items:center">${G('hand',26,'color:var(--sub)')}<span>${t('s_privtx')}</span></div>
+  <div class="sh">${t('s_freq')}</div><div class="card" style="padding:0;overflow:hidden">${NEWS.slice(0,2).map((n,i)=>`<div class="news" data-a="sgo" data-v="article:${i}"><div class="th">${art(n.a)}</div><div><b>${esc(x(n.h))}</b>${trv(n.h)}<small>${t('s_newsname')}</small></div></div>`).join('')}</div></div>`}
+ if(p.p==='news'){return `<div class="web"><div style="background:#d0021b;color:#fff;padding:14px 18px;font-size:22px;font-weight:800">${t('s_newsname')}</div>${NEWS.map((n,i)=>`<div class="news" data-a="sgo" data-v="article:${i}"><div class="th">${art(n.a+i*6)}</div><div><b>${esc(x(n.h))}</b>${trv(n.h)}<small>${x(n.c)} · ${rel(30+i*47)}</small></div></div>`).join('')}</div>`}
+ if(p.p==='article'){const n=NEWS[p.q];return `<div class="web"><div style="background:#d0021b;color:#fff;padding:14px 18px;font-size:18px;font-weight:800">${t('s_newsname')}</div><div class="art"><small style="color:var(--sub)">${x(n.c)} · ${rel(42)}</small><h2>${esc(x(n.h))}</h2>${trv(n.h)}<div style="border-radius:14px;overflow:hidden;height:220px;margin:12px 0">${art(n.a+6)}</div><p>${esc(x(n.b))}</p>${trv(n.b)}<p style="margin-top:12px;color:var(--sub);font-size:13px">※${li()?'本页面为演示用虚构内容。':'このページはデモ用の架空の記事です。'}</p></div></div>`}
+ if(p.p==='weather'){const hrs=['今','11','12','13','14','15','16'];return `<div style="min-height:100%;background:linear-gradient(180deg,#3a8dde,#7fbef5);color:#fff;padding:30px 16px 20px;text-align:center"><div style="font-size:30px">${t('tokyo')}</div><div style="font-size:90px;font-weight:200;line-height:1">18°</div><div style="font-size:19px">${t('sunny')}</div><div style="font-size:17px">${t('hilo')}</div>
+  <div style="background:rgba(255,255,255,.18);border-radius:18px;margin-top:24px;padding:12px;text-align:left"><div style="font-size:12px;opacity:.75;margin-bottom:8px">${t('s_hourly')}</div><div style="display:flex;justify-content:space-between">${hrs.map((h,i)=>`<div style="text-align:center;font-size:14px;font-weight:600">${i?h+(li()?'时':'時'):(li()?'现在':'今')}<div style="margin:6px 0">${G(i>4?'moon':'sun',20,'color:#ffd60a')}</div>${18+[0,1,2,3,2,1,-1][i]}°</div>`).join('')}</div></div>
+  <div style="background:rgba(255,255,255,.18);border-radius:18px;margin-top:12px;padding:12px;text-align:left"><div style="font-size:12px;opacity:.75;margin-bottom:4px">${t('s_week')}</div>${[0,1,2,3,4,5].map(i=>{const d=new Date(Date.now()+i*864e5);return `<div style="display:flex;align-items:center;padding:9px 0;border-top:${i?'.5px solid rgba(255,255,255,.3)':'0'};font-size:16px;font-weight:600"><span style="width:70px">${i?WD[li()][d.getDay()]:(li()?'今天':'今日')}</span>${G(i%3===2?'cmt':'sun',20,'color:'+(i%3===2?'#fff':'#ffd60a'))}<span style="flex:1;text-align:right;opacity:.7">${13+i%3}°</span><span style="width:60px;text-align:right">${21-i%2}°</span></div>`}).join('')}</div>
+  <div style="font-size:12px;opacity:.8;margin-top:12px">${t('s_wname')}</div></div>`}
+ if(p.p==='search'){const q=esc(p.q);return `<div class="web"><div style="padding:14px 18px 6px;font-size:13px;color:var(--sub)">${t('s_res',(12300+p.q.length*1371).toLocaleString())}</div>
+  <div class="sr" data-a="sgo" data-v="dict:${q}"><small>kotoba-hyakka.example › ${q}</small><b>${q} ${t('s_dict')}</b><p>「${q}」${t('s_dicttx')}</p></div>
+  <div class="sr" data-a="sgo" data-v="news"><small>yominavi-news.example</small><b>${q} ${t('s_news')}</b><p>${esc(x(NEWS[3].b))}</p>${trv(NEWS[3].b)}</div>
+  <div class="sr" data-a="sgo" data-v="app:forum"><small>minna-bbs.example</small><b>${q}${t('s_bbs')}</b><p>${esc(x(FORUM[0].posts[1].tx))}</p>${trv(FORUM[0].posts[1].tx)}</div>
+  <div class="sr"><small>images</small><b>${q} ${t('s_img')}</b><div class="iggrid" style="margin-top:8px;border-radius:12px;overflow:hidden">${[0,1,2,3,4,5].map(i=>`<div>${art(p.q.length*7+i)}</div>`).join('')}</div></div></div>`}
+ if(p.p==='dict'){const q=esc(p.q);return `<div class="web"><div style="background:#a2845e;color:#fff;padding:14px 18px;font-size:20px;font-weight:800">${t('s_dname')}</div><div class="art"><h2>${q}</h2><p>「${q}」${t('s_dicttx')}</p></div></div>`}
+ return `<div class="empty">${G('globe',48,'margin:0 auto 14px;color:var(--sub)')}${t('s_noweb')}<br><b>${esc(p.q||'')}</b></div>`}
+function sdomain(p){return {start:'',news:'yominavi-news.example',article:'yominavi-news.example',weather:'soramoyou.example',search:p.q,dict:'kotoba-hyakka.example',site:p.q}[p.p]}
+V.safari=()=>{const r=S.r.safari,p=r.stack[r.i],d=sdomain(p);
+ return `<div class="aw"><div class="top"></div><div class="body">${page(p)}</div>
+ <div class="sbar"><div class="cb ${r.i?'':'dis'}" data-a="sback">${G('back',22)}</div>${r.i<r.stack.length-1?`<div class="cb" data-a="sfwd">${G('fwd',22)}</div>`:''}
+ <div class="addr" data-a="sedit">${r.edit?`${G('srch',17,'color:var(--sub);flex:none')}<input id="sin" data-enter="ssubmit" placeholder="${t('s_ph')}" value="${esc(p.p==='search'?p.q:'')}" autocomplete="off">`:d?`${p.p==='search'?G('srch',15,'color:var(--sub);flex:none'):G('lock',13,'flex:none')}<span>${esc(d)}</span>`:`${G('srch',17,'color:var(--sub);flex:none')}<span style="color:var(--sub)">${t('s_ph')}</span>`}</div>
+ ${r.edit?'':trBtn()}<div class="cb" data-a="${r.edit?'scancel':'sstart'}">${r.edit?G('x',20):G('tabs',21)}</div></div></div>`};
+
+/* ---------- Instagram ---------- */
+const igav=(u,s,e,c)=>e==='IMG'?`<div class="av" style="width:${s}px;height:${s}px;background:url(${AV_SHIHO}) center/cover"></div>`:`<div class="av" style="width:${s}px;height:${s}px;font-size:${s*.48}px;background:${c}">${e}</div>`;
+V.ig=()=>{const r=S.r.ig;let body='';if(r.dm)return igDMView();if(r.prof)return igProfView();
+ const head=`<div class="igh"><div class="lg">Instagram</div>${trBtn(36)}<span data-a="igTab" data-v="home" style="cursor:pointer">${G('heart',26)}</span><span style="cursor:pointer;position:relative" data-a="igDM" data-v="inbox">${G('send',25)}${IGDM.chats.reduce((a,c)=>a+c.unread,0)?'<i style="position:absolute;top:-4px;right:-6px;width:10px;height:10px;border-radius:5px;background:#ff3040"></i>':''}</span></div>`;
+ if(r.tab==='home'){
+  body=head+`<div class="stories"><div class="st"><div class="ring seen" style="position:relative"><div style="display:flex;align-items:center;justify-content:center;background:linear-gradient(#a5abb8,#858a96);color:#fff">${esc(myInit())}</div><span style="position:absolute;right:0;bottom:0;width:22px;height:22px;border-radius:11px;background:var(--blue);border:2px solid var(--card);color:#fff;display:flex;align-items:center;justify-content:center">${G('plus',13)}</span></div>${t('i_you')}</div>${IGPOSTS.filter((p,k,a)=>a.findIndex(q=>q.u===p.u)===k).slice(0,6).map(p=>`<div class="st" ${p.u==='shiho_m'?'data-a="igProf" data-v="shiho"':''}><div class="ring">${p.e==='IMG'?`<div style="background:url(${AV_SHIHO}) center/cover"></div>`:`<div style="display:flex;align-items:center;justify-content:center;background:${p.c}">${p.e}</div>`}</div><span style="max-width:70px;overflow:hidden;text-overflow:ellipsis">${p.u}</span></div>`).join('')}</div>`
+  +IGPOSTS.map((p,i)=>{const lk=r.liked[i],sv=r.saved[i];return `<div class="post"><div class="ph" ${p.u==='shiho_m'?'data-a="igProf" data-v="shiho" style="cursor:pointer"':''}>${igav(p.u,34,p.e,p.c)}<span style="flex:1">${p.u}</span>${G('more',20)}</div><div class="img" data-dbl="igLike" data-v="${i}">${art(p.a+i*6)}${r.pop===i?`<div class="hp">${G('heartf',100)}</div>`:''}</div>
+  <div class="acts"><span data-a="igLike" data-v="${i}" style="${lk?'color:#ff3040':''}">${G(lk?'heartf':'heart',26)}</span><span>${G('cmt',25)}</span><span>${G('send',24)}</span><div style="flex:1"></div><span data-a="igSave" data-v="${i}">${G(sv?'bmf':'bm',25)}</span></div>
+  <div class="cap"><b>${t('i_likes',(p.l+(lk?1:0)).toLocaleString())}</b></div><div class="cap"><b>${p.u}</b> ${esc(x(p.cap))}${trv(p.cap)}</div><div class="cap sub">${t('i_comments',p.cm)}</div><div class="tm">${rel(p.min)}</div></div>`}).join('');
+ }else if(r.tab==='search'){body=`<div style="padding:4px 0 10px"><div class="srch">${G('srch',18)}<span>${t('i_explore')}</span></div></div><div class="iggrid">${Array.from({length:24},(_,i)=>`<div>${art(i*5+2)}</div>`).join('')}</div>`}
+ else if(r.tab==='reels'){S.sbw=true;return `<div class="aw" style="background:#000;color:#fff"><div style="position:absolute;inset:0">${art(18)}</div><div style="position:absolute;top:64px;left:16px;font-size:22px;font-weight:700">${t('i_reels')}</div><div style="position:absolute;right:14px;bottom:150px;display:flex;flex-direction:column;gap:22px;align-items:center;font-size:12px">${G('heart',30)}<span>12.4K</span>${G('cmt',28)}<span>318</span>${G('send',28)}</div><div style="position:absolute;left:16px;bottom:110px;right:80px;font-size:14px"><b>kyoto_walk</b><br>${esc(x(IGPOSTS[4].cap))}</div>${igTabs(r.tab,true)}</div>`}
+ else{body=`<div class="igh"><div style="flex:1;font-size:21px;font-weight:700">${esc(myHandle())} ⌄</div>${G('sq',26)}${G('more',24)}</div><div class="igp">${igav('me',86,esc(myInit()),'linear-gradient(#a5abb8,#858a96)')}<div style="flex:1;display:flex;justify-content:space-around"><div class="n"><b>9</b>${t('i_posts')}</div><div class="n"><b>312</b>${t('i_followers')}</div><div class="n"><b>280</b>${t('i_following')}</div></div></div><div style="padding:4px 18px 12px;font-size:14px;line-height:1.45"><b>${esc(myName())}</b><br>${t('i_bio')}</div><div style="display:flex;gap:6px;padding:0 18px 14px"><div class="igbtn">${t('i_edit')}</div><div class="igbtn">${t('i_share')}</div></div><div class="iggrid">${[3,7,12,15,19,22,26,30,33].map(i=>`<div>${art(i)}</div>`).join('')}</div>`}
+ return `<div class="aw" style="background:var(--card)"><div class="top"></div><div class="body" style="padding-bottom:20px">${body}</div>${igTabs(r.tab)}</div>`};
+
+function igDMView(){const r=S.r.ig;
+ if(r.dm==='inbox'){return `<div class="aw" style="background:var(--card)">${topbar({back:'igDMBack',title:esc(myHandle()),right:`<div class="cb">${G('edit',19)}</div>`})}<div class="body"><div class="srch">${G('srch',18)}<span>${t('search')}</span></div><div style="font-weight:700;padding:6px 16px 8px">${li()?'消息':'メッセージ'}</div>${IGDM.chats.map(c=>{const l=c.msgs[c.msgs.length-1];return `<div class="cell" style="min-height:72px" data-a="igDM" data-v="${c.id}">${avatar(c.who,54)}<div class="tx" style="padding:0"><div style="${c.unread?'font-weight:700':''}">shiho_m</div><div style="font-size:14px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;${c.unread?'color:var(--text);font-weight:600':''}">${l?esc(x(l.tx)):''} · ${l?x(l.t):''}</div></div>${c.unread?'<i style="width:9px;height:9px;border-radius:5px;background:var(--blue);flex:none"></i>':''}${G('cam',24,'color:var(--sub)')}</div>`}).join('')}</div></div>`}
+ const c=IGDM.chats.find(c=>c.id===r.dm);let h='';
+ c.msgs.forEach(m=>{h+=m.me?`<div class="m me"><div class="bb ${m.nw?'pop':''}" style="background:linear-gradient(135deg,#7b3fe4,#3a6df0);color:#fff">${esc(x(m.tx))}${trv(m.tx,m.zh)}</div></div>`:`<div class="m">${avatar(c.who,28)}<div class="bb ${m.nw?'pop':''}" style="background:var(--fill)">${esc(x(m.tx))}${trv(m.tx,m.zh)}</div></div>`});
+ const lm=c.msgs[c.msgs.length-1];if(lm&&lm.me&&lm.read)h+=`<div class="mt" style="margin:0 4px">${li()?'已读':'既読'}</div>`;
+ if(r.typing)h+=`<div class="m">${avatar(c.who,28)}<div class="bb typing" style="background:var(--fill)"><span></span><span></span><span></span></div></div>`;
+ return `<div class="aw" style="background:var(--card)">${topbar({back:'igDMBack',bv:'chat',title:`<span style="display:inline-flex;align-items:center;gap:8px">${avatar(c.who,28)}shiho_m</span>`,right:`<div class="cb" data-a="callp" data-v="shiho">${G('phone',19)}</div>`})}<div class="body" style="padding-bottom:0"><div style="text-align:center;padding:16px 0 6px">${avatar(c.who,84)}<div style="font-weight:700;margin-top:8px">${esc(pn('shiho'))}</div><div style="font-size:13px;color:var(--sub)">shiho_m · Instagram</div></div><div class="msgs">${h}</div></div><div class="ib" style="background:var(--card)"><input data-keep="ig" placeholder="${li()?'发消息…':'メッセージ…'}" data-enter="igSend"><div class="snd" style="background:#3a6df0" data-a="igSend">${G('up',20)}</div></div></div>`}
+function igProfView(){const posts=IGPOSTS.map((p,i)=>[p,i]).filter(([p])=>p.u==='shiho_m');
+ return `<div class="aw" style="background:var(--card)">${topbar({back:'igProfBack',title:'shiho_m'})}<div class="body"><div class="igp">${igav('shiho_m',86,'IMG')}<div style="flex:1;display:flex;justify-content:space-around"><div class="n"><b>${posts.length}</b>${t('i_posts')}</div><div class="n"><b>87</b>${t('i_followers')}</div><div class="n"><b>12</b>${t('i_following')}</div></div></div><div style="padding:4px 18px 12px;font-size:14px;line-height:1.45"><b>${esc(pn('shiho'))}</b><br>${li()?'不怎么发帖。':'あまり投稿しない。'}</div><div style="display:flex;gap:6px;padding:0 18px 14px"><div class="igbtn">${t('i_following')} ⌄</div><div class="igbtn" data-a="igDM" data-v="shiho" style="cursor:pointer">${li()?'发消息':'メッセージ'}</div></div><div class="iggrid">${posts.map(([p,i])=>`<div>${art(p.a+i*6)}</div>`).join('')}</div></div></div>`}
+function igTabs(cur,dark){return `<div class="igtabs" style="${dark?'position:absolute;left:0;right:0;bottom:0;background:#000;border-color:#222;color:#fff':''}">${[['home',cur==='home'?'homef':'home'],['search','srch'],['reels','reels'],['prof',cur==='prof'?'userf':'user']].map(([k,g])=>`<span class="${cur===k?'on':''}" data-a="igTab" data-v="${k}">${G(g,27)}</span>`).join('')}</div>`}
+
+/* ---------- Forum ---------- */
+const CATS=['all','chat','food','travel','tech'];
+V.forum=()=>{const r=S.r.forum;
+ if(r.view==='th'){const th=FORUM.find(f=>f.id===r.th);
+  const posts=th.posts.map((p,i)=>`<div class="rp"><div class="h"><span class="no">${i+1}</span><b>${p.me?t('f_you'):t('f_anon')}</b><span>${stamp(p.min)}</span><span>ID:${(p.id||((th.id*7919+i*104729)%46656).toString(36).padStart(3,'x'))}</span></div><p>${esc(x(p.tx)).replace(/&gt;&gt;(\d+)/g,'<span class="anc">&gt;&gt;$1</span>')}</p>${trv(p.tx)}</div>`).join('');
+  return `<div class="aw">${topbar({back:'forumBack',title:t('f_title')})}<div class="body" style="padding-bottom:20px"><div style="padding:6px 16px 12px"><span class="tag">${t('f_'+th.cat)}</span><div style="font-size:20px;font-weight:700;line-height:1.4;margin-top:6px">${esc(x(th.title))}${trv(th.title)}</div><div style="font-size:13px;color:var(--sub);margin-top:4px">${th.posts.length} ${t('f_res')}</div></div><div style="background:var(--card)">${posts}</div></div>
+  <div class="ib"><input data-keep="fr" placeholder="${t('f_replyph')}" data-enter="forumReply"><div class="snd" style="background:#ff7a00" data-a="forumReply">${G('up',20)}</div></div></div>`}
+ if(r.view==='new'){return `<div class="aw">${topbar({back:'forumBack',title:t('f_new'),right:`<div class="cb pl" style="color:#ff7a00" data-a="forumPost">${t('f_post')}</div>`})}<div class="body" style="padding:8px 16px">
+  <div class="ghd" style="margin:0 4px 8px">${t('f_cat')}</div><div class="chips" style="padding:0 0 16px">${CATS.slice(1).map(c=>`<div class="chip ${r.newcat===c?'on':''}" data-a="forumNewCat" data-v="${c}">${t('f_'+c)}</div>`).join('')}</div>
+  <input class="fi" id="fttl" placeholder="${t('f_ttl')}" style="margin-bottom:12px"><textarea class="fi" id="fbody" placeholder="${t('f_body')}"></textarea></div></div>`}
+ const list=FORUM.filter(f=>r.cat==='all'||f.cat===r.cat).sort((a,b)=>a.min-b.min);
+ return `<div class="aw">${topbar({lt:t('f_title'),right:`<div class="cb" style="color:#ff7a00" data-a="forumNew">${G('edit',20)}</div>`})}<div class="chips">${CATS.map(c=>`<div class="chip ${r.cat===c?'on':''}" data-a="forumCat" data-v="${c}">${t('f_'+c)}</div>`).join('')}</div>
+ <div class="body"><div class="grp">${list.map(f=>`<div class="th" data-a="forumOpen" data-v="${f.id}"><b>${esc(x(f.title))}</b>${trv(f.title)}<small><span class="tag">${t('f_'+f.cat)}</span><span>💬 ${f.posts.length} ${t('f_res')}</span><span>${rel(f.min)}</span></small></div>`).join('')}</div></div></div>`};
+
+/* ---------- Photos ---------- */
+const NPH=0;
+function photoIds(){const r=S.r.photos;let ids=[...Array(NPH).keys()].filter(i=>!r.del[i]);if(r.album==='fav')ids=ids.filter(i=>r.fav[i]);if(r.album==='travel')ids=ids.filter(i=>[0,1,3].includes(i%6));if(r.album==='food')ids=ids.filter(i=>i%6===4);return ids}
+V.photos=()=>{const r=S.r.photos;
+ if(r.view!==null){S.sbw=true;const ids=photoIds(),i=r.view,pos=ids.indexOf(i);const d=new Date(Date.now()-(NPH-i)*86400000*1.7);
+  return `<div class="viewer"><div class="top"><div class="bar"><div class="cb" style="background:rgba(60,60,60,.6);color:#fff" data-a="phClose">${G('back',22)}</div><div class="ttl" style="color:#fff;line-height:1.2">${d.getMonth()+1}${li()?'月':'月'}${d.getDate()}${li()?'日':'日'}<br><small style="font-size:12px;font-weight:400;opacity:.7">${pad(9+i%10)}:${pad((i*17)%60)}</small></div></div></div>
+  <div class="vimg"><div>${art(i)}</div><div style="position:absolute;left:0;top:0;bottom:0;width:40%;cursor:pointer" data-a="phNav" data-v="${pos-1}"></div><div style="position:absolute;right:0;top:0;bottom:0;width:40%;cursor:pointer" data-a="phNav" data-v="${pos+1}"></div></div>
+  <div style="text-align:center;font-size:12px;opacity:.6">${t('ph_info')}</div>
+  <div class="vbar"><span data-a="toast" data-v="st_demo">${G('share',26)}</span><span data-a="phFav" style="${r.fav[i]?'color:#ff3b30':''}">${G(r.fav[i]?'heartf':'heart',26)}</span><span data-a="toast" data-v="ph_info">${G('info',26)}</span><span data-a="phDel">${G('trash',26)}</span></div></div>`}
+ if(r.tab==='alb'&&!r.album){const al=[['recent',t('ph_recent'),NPH-Object.keys(r.del).length,0],['fav',t('ph_fav'),photoIdsFor('fav'),3],['travel',t('ph_travel'),photoIdsFor('travel'),1],['food',t('ph_food'),photoIdsFor('food'),4]];
+  return `<div class="aw">${topbar({lt:t('ph_alb'),right:`<div class="cb">${G('plus',20)}</div>`})}<div class="body"><div class="sh" style="padding-top:0">${t('ph_my')}</div><div class="albs">${al.map(([k,n,c,a])=>`<div class="alb" data-a="phAlbum" data-v="${k}"><div>${c?art(a):''}</div><b>${n}</b><small>${c}</small></div>`).join('')}</div></div>${tabs([['lib','flower',t('ph_lib')],['alb','book',t('ph_alb')]],'alb','phTab')}</div>`}
+ const ids=photoIds();const title=r.album?{fav:t('ph_fav'),travel:t('ph_travel'),food:t('ph_food'),recent:t('ph_recent')}[r.album]:t('ph_lib');
+ return `<div class="aw">${topbar({back:r.album?'phAlbBack':'',lt:title,extra:`<div style="padding:0 18px 10px;font-size:14px;color:var(--sub)">${t('ph_count',ids.length)}</div>`,right:`<div class="cb">${G('srch',20)}</div>`})}<div class="body">${ids.length?'':`<div class="empty">${G('flower',48,'margin:0 auto 14px;color:var(--sub)')}${t('ph_none')}</div>`}<div class="pgrid">${ids.map(i=>`<div data-a="phOpen" data-v="${i}">${art(i)}${r.fav[i]?`<span class="fh">${G('heartf',14)}</span>`:''}</div>`).join('')}</div></div>${tabs([['lib','flower',t('ph_lib')],['alb','book',t('ph_alb')]],r.album?'alb':'lib','phTab')}</div>`};
+function photoIdsFor(a){const o=S.r.photos.album;S.r.photos.album=a;const n=photoIds().length;S.r.photos.album=o;return n}
+
+/* ---------- Maps ---------- */
+let mapSVG='';
+function buildMap(){
+ let s=`<rect x="-500" y="-500" width="2000" height="2000" class="land"/>`;
+ // blocks
+ for(let gx=0;gx<1000;gx+=100)for(let gy=0;gy<1000;gy+=100){if(gx>=180&&gx<420&&gy>=140&&gy<380)continue;s+=`<rect x="${gx+9}" y="${gy+9}" width="82" height="82" rx="4" class="blk"/>`;}
+ s+=`<rect x="170" y="130" width="260" height="260" rx="30" class="water"/><rect x="186" y="146" width="228" height="228" rx="22" class="park"/>`;
+ s+=`<rect x="409" y="609" width="132" height="182" rx="8" class="park"/>`;
+ s+=`<path d="M-500 900 C 100 840 400 980 1500 860 L1500 1000 L-500 1000Z" class="water"/>`;
+ for(let i=0;i<=1000;i+=100){s+=`<line x1="${i}" y1="-500" x2="${i}" y2="1500" class="rd"/><line x1="-500" y1="${i}" x2="1500" y2="${i}" class="rd"/>`}
+ s+=`<line x1="500" y1="-500" x2="500" y2="1500" class="mj"/><line x1="-500" y1="500" x2="1500" y2="500" class="mj"/><line x1="-200" y1="1100" x2="1200" y2="80" class="mj" opacity=".9"/>`;
+ s+=`<line x1="700" y1="-500" x2="640" y2="1500" class="rail"/><line x1="700" y1="-500" x2="640" y2="1500" class="raild"/>`;
+ [['丸の内','丸之内',600,300],['銀座','银座',870,640],['有楽町','有乐町',560,660],['八重洲','八重洲',830,380],['大手町','大手町',560,150],['日本橋','日本桥',880,170]].forEach(([a,b,xx,yy])=>{s+=`<text x="${xx}" y="${yy}" class="lbl" data-ja="${a}" data-zh="${b}">${li()?b:a}</text>`});
+ return s;
+}
+V.maps=()=>{const r=S.r.maps;if(!r.init){r.init=1;r.x=201-ME.x;r.y=380-ME.y}
+ const pins=PLACES.map(p=>`<g class="pin" data-a="mapSel" data-v="${p.id}" transform="translate(${p.x} ${p.y})"><circle r="${r.sel===p.id?20:15}" fill="${p.c}" stroke="#fff" stroke-width="3"/><text y="6" text-anchor="middle" font-size="${r.sel===p.id?18:14}">${p.e}</text><text y="${r.sel===p.id?40:34}" text-anchor="middle" class="plbl">${esc(x(p.n))}</text></g>`).join('');
+ const sp=PLACES.find(p=>p.id===r.sel);
+ const route=sp&&r.route?`<polyline points="${ME.x},${ME.y} ${sp.x},${ME.y} ${sp.x},${sp.y}" fill="none" stroke="#1a73ff" stroke-width="9" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><polyline points="${ME.x},${ME.y} ${sp.x},${ME.y} ${sp.x},${sp.y}" fill="none" stroke="#7fb3ff" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round"/>`:'';
+ let sheet='';
+ if(sp){const dist=(Math.abs(sp.x-ME.x)+Math.abs(sp.y-ME.y))*1.6,mins=Math.max(1,Math.round(dist/80));
+  sheet=`<div class="msheet"><div style="display:flex;align-items:flex-start;gap:10px;padding:4px 6px 12px"><div style="flex:1"><div style="font-size:22px;font-weight:700">${esc(x(sp.n))}${trv(sp.n)}</div><div style="color:var(--sub);font-size:14px;margin-top:2px">${x(sp.cat)} · ${dist>=1000?(dist/1000).toFixed(1)+' km':Math.round(dist)+' m'}</div></div><div class="cb" style="width:34px;height:34px;background:var(--fill)" data-a="mapClose">${G('x',16)}</div></div>
+  ${r.route?`<div style="display:flex;align-items:center;gap:10px;padding:0 6px 12px">${G('walk',26,'color:var(--blue)')}<div style="flex:1"><b style="font-size:20px">${mins} ${t('mp_min')}</b><div style="font-size:13px;color:var(--sub)">${t('mp_walk')} · ${Math.round(dist)} m</div></div><div class="mbtn pri" style="flex:none;width:96px;background:#34c759" data-a="mapGo">${t('mp_go')}</div></div>`:`<div style="display:flex;gap:8px"><div class="mbtn pri" data-a="mapRoute">${G('walk',20,'margin-right:4px')} ${t('mp_route')}</div><div class="mbtn" data-a="callp" data-v="">${G('phone',18)}</div><div class="mbtn" data-a="toast" data-v="st_demo">${G('more',18)}</div></div>`}</div>`}
+ else{const q=r.q.trim().toLowerCase();const L=PLACES.filter(p=>!q||p.n.some(n=>n.toLowerCase().includes(q))||p.cat.some(n=>n.toLowerCase().includes(q)));
+  sheet=`<div class="msheet"><div class="srch" data-a="mapSheet">${G('srch',18)}<input id="mq" data-keep="mq" placeholder="${t('mp_search')}" value="${esc(r.q)}" autocomplete="off"></div>${r.sheet?`<div style="font-size:13px;color:var(--sub);font-weight:600;margin:12px 6px 0">${t('mp_near')}</div><div class="mlist">${L.map(p=>`<div class="mrow" data-a="mapSel" data-v="${p.id}"><div class="pi" style="background:${p.c}">${p.e}</div><div style="flex:1"><b>${esc(x(p.n))}</b>${trv(p.n)}<small>${x(p.cat)}</small></div></div>`).join('')}</div>`:''}</div>`}
+ return `<div class="aw map" id="mapwrap"><svg id="msvg"><style>.land{fill:#f2efe9}.blk{fill:#e7e3db}.park{fill:#c5e8b0}.water{fill:#a8d4f7}.rd{stroke:#fff;stroke-width:9}.mj{stroke:#ffd879;stroke-width:16}.rail{stroke:#8e8e93;stroke-width:6}.raild{stroke:#fff;stroke-width:3;stroke-dasharray:14 14}.lbl{font-size:17px;fill:#6b6b70;font-weight:700;text-anchor:middle;letter-spacing:2px}.plbl{font-size:14px;font-weight:700;fill:#1c1c1e;paint-order:stroke;stroke:#fff;stroke-width:4px}
+ .dark .land{fill:#2b2b2e}.dark .blk{fill:#343438}.dark .park{fill:#2f4a32}.dark .water{fill:#1f3a5a}.dark .rd{stroke:#4a4a50}.dark .mj{stroke:#6e5a2c}.dark .lbl{fill:#9a9aa0}.dark .plbl{fill:#fff;stroke:#1c1c1e}</style>
+ <g id="mg" transform="translate(${r.x} ${r.y}) scale(${r.z})">${mapSVG}${route}<circle cx="${ME.x}" cy="${ME.y}" r="26" fill="#1a73ff" opacity=".15"><animate attributeName="r" values="14;34;14" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="${ME.x}" cy="${ME.y}" r="10" fill="#1a73ff" stroke="#fff" stroke-width="4"/>${pins}</g></svg></div>
+ <div class="mside">${trBtn()}<div class="cb" data-a="mapMe">${G('locO',20,'color:var(--blue)')}</div><div class="cb" data-a="mapZ" data-v="1.3">${G('plus',20)}</div><div class="cb" data-a="mapZ" data-v="0.77">${G('minus',20)}</div></div>${sheet}`};
+let mdrag=null,moved=false;
+function bindMap(){const w=$('#mapwrap');if(!w)return;
+ w.onpointerdown=e=>{mdrag={x:e.clientX,y:e.clientY,ox:S.r.maps.x,oy:S.r.maps.y};moved=false;const ae=document.activeElement;if(ae&&ae.id==='mq')ae.blur()};
+ const mi=$('#mq');if(mi){mi.oninput=()=>{S.r.maps.q=mi.value;S.r.maps.sheet=true;render()};mi.onfocus=()=>{if(!S.r.maps.sheet){S.r.maps.sheet=true;render();setTimeout(()=>{const m=$('#mq');if(m){m.focus()}},0)}}}
+}
+window.addEventListener('pointermove',e=>{if(!mdrag)return;const dx=(e.clientX-mdrag.x)/SCALE,dy=(e.clientY-mdrag.y)/SCALE;if(Math.abs(dx)+Math.abs(dy)>5)moved=true;if(!moved)return;S.r.maps.x=mdrag.ox+dx;S.r.maps.y=mdrag.oy+dy;const g=$('#mg');if(g)g.setAttribute('transform',`translate(${S.r.maps.x} ${S.r.maps.y}) scale(${S.r.maps.z})`)});
+window.addEventListener('pointerup',()=>{if(mdrag){mdrag=null;setTimeout(()=>moved=false,0)}});
+
+/* ---------- Settings ---------- */
+const sic=(g,c)=>`<div class="si" style="background:${c}">${G(g,19)}</div>`;
+const ch=`<span class="chev">${G('chev',15)}</span>`;
+const tgl=(on,a)=>`<div class="tg ${on?'on':''}" data-a="${a}"></div>`;
+function cell(o){return `<div class="cell" ${o.a?`data-a="${o.a}" data-v="${o.v||''}"`:''}>${o.ic||''}<div class="tx">${o.t}</div>${o.val!==undefined?`<span class="vl">${o.val}</span>`:''}${o.tg!==undefined?o.tg:ch}</div>`}
+const SP={};
+SP.main=()=>({lt:t('app_settings'),body:`<div class="srch">${G('srch',18)}<span>${t('search')}</span></div>
+ <div class="grp"><div class="prof" data-a="toast" data-v="st_demo">${avatar('me',60,myName())}<div style="flex:1"><div style="font-size:21px;font-weight:600">${esc(myName())}</div><div style="font-size:13.5px;color:var(--sub);margin-top:2px">${t('st_acc')}</div></div>${ch}</div></div>
+ <div class="grp" style="--ind:59px">${cell({ic:sic('plane','#ff9500'),t:t('st_air'),tg:tgl(S.air,'tAir'),a:'tAir'})}${cell({ic:sic('wifi','#007aff'),t:t('st_wifi'),val:S.air||!S.wifi?t('off'):S.ssid,a:'sp',v:'wifi'})}${cell({ic:sic('bt','#007aff'),t:t('st_bt'),val:S.bt&&!S.air?t('on'):t('off'),a:'sp',v:'bt'})}${cell({ic:sic('cell','#34c759'),t:t('st_cell'),a:'sp',v:'cell'})}</div>
+ <div class="grp" style="--ind:59px">${cell({ic:sic('gear','#8e8e93'),t:t('st_gen'),a:'sp',v:'gen'})}${cell({ic:sic('globe','#007aff'),t:t('st_lang'),val:S.lang==='ja'?'日本語':'简体中文',a:'sp',v:'lang'})}${cell({ic:sic('sun','#007aff'),t:t('st_disp'),a:'sp',v:'disp'})}${cell({ic:sic('flower','#33bbee'),t:t('st_wall'),a:'sp',v:'wall'})}</div>
+ <div class="grp" style="--ind:59px">${cell({ic:sic('bell','#ff3b30'),t:t('st_noti'),a:'sp',v:'noti'})}${cell({ic:sic('spk','#ff2d55'),t:t('st_sound'),a:'sp',v:'sound'})}${cell({ic:sic('moon','#5e5ce6'),t:t('st_focus'),a:'sp',v:'focus'})}${cell({ic:sic('hour','#5e5ce6'),t:t('st_screen'),a:'sp',v:'screen'})}</div>
+ <div class="grp" style="--ind:59px">${cell({ic:sic('batt','#34c759'),t:t('st_batt'),a:'sp',v:'batt'})}${cell({ic:sic('hand','#007aff'),t:t('st_priv'),a:'sp',v:'priv'})}</div>`});
+SP.wifi=()=>({title:t('st_wifi'),body:`<div class="grp">${cell({t:t('st_wifi'),tg:tgl(S.wifi&&!S.air,'tWifi'),a:'tWifi'})}${S.wifi&&!S.air?`<div class="cell"><span style="color:var(--blue)">${G('check',20)}</span><div class="tx">${S.ssid}</div>${G('lock',15,'color:var(--sub)')}${G('wifi',18)}<span style="color:var(--blue)">${G('info',22)}</span></div>`:''}</div>
+ ${S.wifi&&!S.air?`<div class="ghd">${t('st_networks')}</div><div class="grp">${['Home-5G','Cafe_Hinata_Free','aterm-8f2a-g','Tokyo_Station_WiFi'].filter(n=>n!==S.ssid).map(n=>`<div class="cell" data-a="wifiJoin" data-v="${n}"><div class="tx" style="padding-left:33px">${n}</div>${n.includes('Free')||n.includes('Station')?'':G('lock',15,'color:var(--sub)')}${G('wifi',18)}<span style="color:var(--blue)">${G('info',22)}</span></div>`).join('')}</div>`:''}
+ <div class="grp">${cell({t:t('st_ask'),val:t('on')})}</div>`});
+SP.bt=()=>({title:t('st_bt'),body:`<div class="grp">${cell({t:t('st_bt'),tg:tgl(S.bt&&!S.air,'tBt'),a:'tBt'})}</div>${S.bt&&!S.air?`<div class="ghd">${t('st_mydev')}</div><div class="grp">${[['AirPods Pro',1],['Apple Watch',1],['Magic Keyboard',0]].map(([n,c])=>`<div class="cell"><div class="tx">${n}</div><span class="vl">${c?t('st_conn'):t('st_notconn')}</span><span style="color:var(--blue)">${G('info',22)}</span></div>`).join('')}</div>`:''}`});
+SP.cell=()=>({title:t('st_cell'),body:`<div class="grp">${cell({t:t('st_data'),tg:tgl(!S.air,'tAir'),a:'tAir'})}${cell({t:t('st_roam'),tg:tgl(false,'toast'),a:'toast',v:'st_demo'})}${cell({t:t('st_hotspot'),val:t('off')})}</div><div class="grp">${cell({t:'SIM',val:'SoftBank · 5G'})}</div>`});
+SP.gen=()=>({title:t('st_gen'),body:`<div class="grp">${cell({t:t('st_about'),a:'sp',v:'about'})}${cell({t:t('st_update'),a:'sp',v:'update'})}</div><div class="grp">${cell({t:t('st_date'),a:'toast',v:'st_demo'})}${cell({t:t('st_kb'),a:'toast',v:'st_demo'})}${cell({t:t('st_lang'),val:S.lang==='ja'?'日本語':'简体中文',a:'sp',v:'lang'})}</div><div class="grp">${cell({t:t('st_reset'),a:'toast',v:'st_demo'})}</div>`});
+SP.about=()=>({title:t('st_about'),body:`<div class="grp">${[[t('st_name'),'iPhone'],[t('st_ver'),'26.1'],[t('st_model'),'iPhone 17'],[t('st_serial'),'F2LXK9Q7MN']].map(([a,b])=>cell({t:a,val:b,tg:''})).join('')}</div><div class="grp">${[[t('st_cap'),'256 GB'],[t('st_avail'),'182.4 GB']].map(([a,b])=>cell({t:a,val:b,tg:''})).join('')}</div>`});
+SP.update=()=>({title:t('st_update'),body:`<div style="text-align:center;padding:120px 30px;color:var(--sub)">${G('gear',60,'margin:0 auto 16px')}<div style="font-size:17px;color:var(--text);font-weight:600">${t('st_upd1')}</div><div style="margin-top:4px">${t('st_upd2')}</div></div>`});
+SP.lang=()=>({title:t('st_lang'),body:`<div class="ghd">${t('st_pref')}</div><div class="grp">${[['ja','日本語','Japanese'],['zh','简体中文','中文（简体）']].map(([k,a,b])=>`<div class="cell" data-a="setLang" data-v="${k}" style="min-height:62px"><div class="tx" style="padding:8px 0"><div>${a}</div><div style="font-size:13px;color:var(--sub)">${b}</div></div>${S.lang===k?`<span class="radio">${G('check',22)}</span>`:''}</div>`).join('')}</div><div class="gft">${t('st_langnote')}</div><div class="grp">${cell({t:t('st_region'),val:t('st_japan'),tg:''})}</div>`});
+SP.disp=()=>({title:t('st_disp'),body:`<div class="ghd">${t('st_appear')}</div><div class="grp"><div class="appear">${[[0,t('st_light'),'#f2f2f7','#fff'],[1,t('st_dark'),'#000','#2c2c2e']].map(([d,l,b,c])=>`<div data-a="setDark" data-v="${d}"><div class="pv" style="background:${b}"><div style="height:42px;background:${WALLS[S.wall]}"></div><div style="margin:8px;height:14px;border-radius:5px;background:${c}"></div><div style="margin:8px;height:14px;border-radius:5px;background:${c}"></div></div>${l}<span style="width:22px;height:22px;border-radius:11px;border:1.5px solid var(--sep);display:flex;align-items:center;justify-content:center;${(S.dark?1:0)===d?'background:var(--blue);border-color:var(--blue);color:#fff':''}">${(S.dark?1:0)===d?G('check',14):''}</span></div>`).join('')}</div></div>
+ <div class="ghd">${t('st_bright')}</div><div class="grp"><div class="cell">${G('sun',16,'color:var(--sub)')}<input type="range" min="10" max="100" value="${S.bright}" data-input="bright">${G('sun',24,'color:var(--sub)')}</div>${cell({t:t('st_tt'),tg:tgl(S.truetone,'tTT'),a:'tTT'})}</div>`});
+SP.wall=()=>({title:t('st_wall'),body:`<div class="ghd">${t('st_choose')}</div><div class="walls">${WALLS.map((w,i)=>`<div class="${S.wall===i?'on':''}" style="background:${w}" data-a="setWall" data-v="${i}"></div>`).join('')}</div>`});
+SP.noti=()=>({title:t('st_noti'),body:`<div class="grp" style="--ind:59px">${['line','msg','phone','ig','forum'].map(k=>`<div class="cell"><div style="width:30px;height:30px;border-radius:8px;overflow:hidden;flex:none">${ICONS[k]}</div><div class="tx">${t('app_'+k)}</div>${tgl(S.noti[k],'tNoti')}</div>`).join('').replace(/data-a="tNoti"/g,(m,o)=>m)}</div>`});
+SP.sound=()=>({title:t('st_sound'),body:`<div class="grp">${cell({t:t('st_silent'),tg:tgl(S.silent,'tSilent'),a:'tSilent'})}</div><div class="ghd">${t('st_ring')}</div><div class="grp"><div class="cell">${G('spk',18,'color:var(--sub)')}<input type="range" min="0" max="100" value="${S.vol}" data-input="vol"></div>${cell({t:t('st_haptic'),tg:tgl(true,'toast'),a:'toast',v:'st_demo'})}</div>`});
+SP.focus=()=>({title:t('st_focus'),body:`<div class="grp" style="--ind:59px">${[['moon','#5e5ce6','st_dnd'],['moon','#30b0c7','st_sleep'],['userf','#ff9500','st_personal'],['book','#32ade6','st_work']].map(([g,c,k])=>cell({ic:sic(g,c),t:t(k),a:'toast',v:'st_demo'})).join('')}</div><div class="gft">${t('st_focusnote')}</div>`});
+SP.screen=()=>({title:t('st_screen'),body:`<div class="card"><div style="color:var(--sub);font-size:13px">${t('st_sttx')}</div><div style="font-size:28px;font-weight:700;margin:4px 0 12px">${li()?'3小时12分钟':'3時間12分'}</div><div class="bars" style="padding:0">${[60,85,40,95,70,55,30].map(h=>`<i style="height:${h}%;background:#5e5ce6"></i>`).join('')}</div></div>`});
+SP.batt=()=>({title:t('st_batt'),body:`<div class="grp">${cell({t:t('st_pct'),tg:tgl(S.pct,'tPct'),a:'tPct'})}${cell({t:t('st_lowpow'),tg:tgl(S.lowpow,'tLow'),a:'tLow'})}</div><div class="card"><div style="color:var(--sub);font-size:13px">${t('st_last24')}</div><div style="font-size:34px;font-weight:700;margin:2px 0 12px">${S.batt}%</div><div class="bars" style="padding:0">${[100,96,90,85,80,92,100,98,94,88,84,82].map(h=>`<i style="height:${h}%"></i>`).join('')}</div></div>`});
+SP.priv=()=>({title:t('st_priv'),body:`<div class="grp" style="--ind:59px">${cell({ic:sic('loc','#007aff'),t:t('st_loc'),val:t('on'),a:'toast',v:'st_demo'})}${cell({ic:sic('hand','#ff9500'),t:t('st_track'),a:'toast',v:'st_demo'})}</div>`});
+V.settings=()=>{const st=S.r.settings.stack,cur=st[st.length-1],p=SP[cur]();
+ return `<div class="aw">${topbar({back:st.length>1?'spBack':'',title:p.title||'',lt:p.lt})}<div class="body">${p.body}</div></div>`};
+
+/* ---------- actions ---------- */
+const A={
+ open(v,el){if(el&&el.dataset.p==='weather'){S.r.safari.stack=[{p:'start'},{p:'weather'}];S.r.safari.i=1}openApp(v)},
+ toast(v){toast(t(v))},
+ unlock(){unlock()},
+ lnoti(v){unlock();setTimeout(()=>{const c=LINE.chats.find(c=>c.id===v);if(c){c.unread=0;S.r.line.chat=v}openApp('line')},300)},
+ flash(){toast(li()?'手电筒':'ライト')},lockcam(){toast(t('st_demo'))},
+ power(){if(S.locked){toast(hm())}else lock()},
+ vol(v){S.vol=Math.max(0,Math.min(100,S.vol+(v==='up'?10:-10)));toast(`🔊 ${t('vol')} ${S.vol}%`)},
+ action(){S.silent=!S.silent;toast(S.silent?'🔕 '+t('action'):'🔔 '+t('silentoff'));if(S.app==='settings')render()},
+ // line
+ lineTab(v){S.r.line.tab=v;nav()},
+ lineOpen(v){S.r.line.editName=false;let c=LINE.chats.find(c=>c.id===v);if(!c){c={id:v,who:v,unread:0,msgs:[]};LINE.chats.push(c)}c.unread=0;saveLine();S.r.line.chat=v;nav();drawHome()},
+ lineBack(){S.r.line.chat=null;S.r.line.typing=false;nav()},
+ trToggle(){S.trOn[S.app]=!S.trOn[S.app];toast(S.trOn[S.app]?'翻訳：オン（中文）':'翻訳：オフ');render()},
+ lineNameEdit(){if(S.r.line.editName)return;S.r.line.editName=true;render();setTimeout(()=>{const i=$('#lnm');if(i)i.focus()},30)},
+ lineNameSave(){const i=$('#lnm');S.lineName=i.value.trim();S.r.line.editName=false;saveLine();toast(t('l_saved'));drawAll()},
+ lineSend(){const i=$('#app input[data-keep="ln"]');const v=i.value.trim();if(!v)return;i.value='';const c=LINE.chats.find(c=>c.id===S.r.line.chat);const m={me:1,tx:v,t:hm(),nw:1};c.msgs.forEach(m=>m.nw=0);c.msgs.push(m);saveLine();render();
+  if(c.who==='shiho'){aiQueue(c,'line');return}
+  const cid=c.id;setTimeout(()=>{m.read=1;if(S.app==='line'&&S.r.line.chat===cid){S.r.line.typing=true;render()}},900);
+  setTimeout(()=>{S.r.line.typing=false;const rp=LINE_REPLY[Math.floor(Math.random()*LINE_REPLY.length)];c.msgs.forEach(m=>m.nw=0);c.msgs.push({me:0,tx:rp,t:hm(),nw:1});saveLine();if(S.app==='line'&&S.r.line.chat===cid)render();else{c.unread++;drawHome()}},2400)},
+ // messages
+ msgOpen(v){const c=SMS.chats.find(c=>c.id===v);c.unread=0;saveLine();S.r.msg.chat=v;nav();drawHome()},
+ msgBack(){S.r.msg.chat=null;S.r.msg.typing=false;nav()},
+ msgTo(v){let c=SMS.chats.find(c=>c.who===v);if(!c){c={id:v,who:v,msgs:[],unread:0};SMS.chats.unshift(c)}S.r.msg.chat=c.id;openApp('msg')},
+ msgSend(){const i=$('#app input[data-keep="im"]');const v=i.value.trim();if(!v)return;i.value='';const c=SMS.chats.find(c=>c.id===S.r.msg.chat);c.msgs.forEach(m=>m.nw=0);c.msgs.push({me:1,tx:v,t:hm(),nw:1});saveLine();render();
+  if(c.who==='shiho'){aiQueue(c,'msg');return}if(!c.who)return;const cid=c.id;setTimeout(()=>{if(S.app==='msg'&&S.r.msg.chat===cid){S.r.msg.typing=true;render()}},800);
+  setTimeout(()=>{S.r.msg.typing=false;c.msgs.forEach(m=>m.nw=0);c.msgs.push({me:0,tx:SMS_REPLY[Math.floor(Math.random()*SMS_REPLY.length)],t:hm(),nw:1});if(S.app==='msg'&&S.r.msg.chat===cid)render();else{c.unread++;drawHome()}},2200)},
+ // phone
+ phoneTab(v){S.r.phone.tab=v;if(v==='rec')RECENTS.forEach(r=>r.seen=1);nav();drawHome()},
+ phoneContact(v){S.r.phone.contact=v;nav()},phoneContactBack(){S.r.phone.contact=null;nav()},
+ kp(v){if(S.r.phone.num.length<15)S.r.phone.num+=v;render()},kpdel(){S.r.phone.num=S.r.phone.num.slice(0,-1);render()},
+ dial(){const n=S.r.phone.num;if(!n){const last=RECENTS.find(r=>r.ty==='out');if(last)S.r.phone.num=PEOPLE[last.who].tel.replace(/-/g,'');render();return}const who=Object.keys(PEOPLE).find(k=>PEOPLE[k].tel.replace(/-/g,'')===n);startCall(who,fmtNum(n))},
+ lineCall(v){startCall(v,'',true)},
+ callSay(){const c=S.r.phone.call;if(!c||!c.ai||!c.start)return;const i=$('#app input[data-keep="call"]');const v=i.value.trim();if(!v)return;i.value='';if(c.conv){c.chat.msgs.push({me:1,tx:v});render();try{c.conv.sendUserMessage(v)}catch(e){}return}try{speechSynthesis.cancel()}catch(e){}c.chat.msgs.push({me:1,tx:v});render();aiQueue(c.chat,'call')},
+ callRepeat(){const c=S.r.phone.call;if(!c||!c.ai)return;if(c.conv){toast(li()?'实时通话中无法重播':'リアル通話中は再生できません');return}const m=[...c.chat.msgs].reverse().find(m=>!m.me);if(m)speak(String(x(m.tx)),c)},
+ say(v){const c=LINE.chats.find(c=>c.id===S.r.line.chat);const m=c&&c.msgs[+v];if(m){ttsWarm();speak(String(x(m.tx)))}},
+ callp(v){if(!v){toast(t('st_demo'));return}startCall(v,PEOPLE[v].tel)},
+ callBtn(v){const c=S.r.phone.call;if(v==='mute'&&c.conv){c.mute=!c.mute;try{c.conv.setMicMuted(c.mute)}catch(e){}render();return}if(v==='mute'&&!c.mute){try{speechSynthesis.cancel()}catch(e){}}if(v==='kp'||v==='add'||v==='ft'||v==='con'){toast(t('st_demo'));return}c[v]=!c[v];render()},
+ hang(v){const c=S.r.phone.call;if(!c)return;if(c.conv&&v!==true){const cv=c.conv;c.conv=null;try{cv.endSession()}catch(e){}}try{speechSynthesis.cancel()}catch(e){}clearTimeout(c.tm);if(c.who)RECENTS.unshift({who:c.who,ty:'out',t:hm(),seen:1});S.r.phone.call=null;S.r.phone.num='';$('#island').classList.remove('wide');toast(t('p_ended'));if(c.from&&c.from!=='phone'){openApp(c.from)}else{S.r.phone.tab='rec';nav()}},
+ // safari
+ sgo(v){if(v.startsWith('app:')){openApp(v.slice(4));return}const [p,...q]=v.split(':');sPush({p,q:p==='article'?+q.join(':'):q.join(':')})},
+ sback(){const r=S.r.safari;if(r.i>0){r.i--;r.edit=false;nav()}},sfwd(){const r=S.r.safari;if(r.i<r.stack.length-1){r.i++;nav()}},
+ sedit(){const r=S.r.safari;if(r.edit)return;r.edit=true;render();setTimeout(()=>{const i=$('#sin');if(i){i.focus();i.select()}},30)},
+ scancel(){S.r.safari.edit=false;render()},sstart(){sPush({p:'start'})},
+ ssubmit(){const v=$('#sin').value.trim();if(!v)return;const lv=v.toLowerCase();
+  if(/^(news|ニュース|新闻)$/.test(lv))sPush({p:'news'});else if(/^(weather|天気|天气)$/.test(lv))sPush({p:'weather'});else if(/\.[a-z]{2,}$/.test(lv)&&!lv.includes(' '))sPush({p:'site',q:v});else sPush({p:'search',q:v})},
+ // ig
+ igTab(v){S.r.ig.tab=v;S.r.ig.dm=null;S.r.ig.prof=null;nav()},
+ igDM(v){S.r.ig.dm=v;if(v!=='inbox'){const c=IGDM.chats.find(c=>c.id===v);if(c){c.unread=0;saveLine()}}nav()},
+ igDMBack(v){S.r.ig.dm=v==='chat'?'inbox':null;S.r.ig.typing=false;nav()},
+ igProf(v){S.r.ig.prof=v;nav()},igProfBack(){S.r.ig.prof=null;nav()},
+ igSend(){const i=$('#app input[data-keep="ig"]');const v=i.value.trim();if(!v)return;i.value='';const c=IGDM.chats.find(c=>c.id===S.r.ig.dm);c.msgs.forEach(m=>m.nw=0);c.msgs.push({me:1,tx:v,t:hm(),nw:1});saveLine();render();aiQueue(c,'ig')},
+ igLike(v,el,dbl){const r=S.r.ig,i=+v;if(dbl){r.liked[i]=1;r.pop=i;render();setTimeout(()=>{if(r.pop===i){r.pop=null}},900)}else{r.liked[i]=!r.liked[i];r.pop=null;render()}},
+ igSave(v){const r=S.r.ig;r.saved[v]=!r.saved[v];if(r.saved[v])toast(t('i_saved'));render()},
+ // forum
+ forumCat(v){S.r.forum.cat=v;nav()},forumOpen(v){S.r.forum.view='th';S.r.forum.th=+v;nav()},forumBack(){S.r.forum.view='list';nav()},
+ forumNew(){S.r.forum.view='new';nav();setTimeout(()=>{const i=$('#fttl');if(i)i.focus()},50)},
+ forumNewCat(v){const a=$('#fttl').value,b=$('#fbody').value;S.r.forum.newcat=v;render();$('#fttl').value=a;$('#fbody').value=b},
+ forumPost(){const a=$('#fttl').value.trim(),b=$('#fbody').value.trim();if(!a||!b){toast(t('f_need'));return}const id=Date.now();FORUM.push({id,cat:S.r.forum.newcat,title:a,min:0,posts:[{min:0,tx:b,me:1}]});S.r.forum.view='th';S.r.forum.th=id;toast(t('f_posted'));nav()},
+ forumReply(){const i=$('#app input[data-keep="fr"]');const v=i.value.trim();if(!v)return;i.value='';const th=FORUM.find(f=>f.id===S.r.forum.th);th.posts.push({min:0,tx:v,me:1});th.min=0;render();const b=$('#app .body');b.scrollTop=b.scrollHeight},
+ // photos
+ phTab(v){S.r.photos.tab=v;S.r.photos.album=null;nav()},phAlbum(v){S.r.photos.album=v==='recent'?null:v;S.r.photos.tab='lib';if(v==='recent'){S.r.photos.tab='lib'}nav()},phAlbBack(){S.r.photos.album=null;S.r.photos.tab='alb';nav()},
+ phOpen(v){S.r.photos.view=+v;render()},phClose(){S.r.photos.view=null;render()},
+ phNav(v){const ids=photoIds();const p=+v;if(p>=0&&p<ids.length){S.r.photos.view=ids[p];render()}},
+ phFav(){const r=S.r.photos;r.fav[r.view]=!r.fav[r.view];if(!r.fav[r.view])delete r.fav[r.view];render()},
+ phDel(){const r=S.r.photos,ids=photoIds(),p=ids.indexOf(r.view);r.del[r.view]=1;delete r.fav[r.view];const n=photoIds();r.view=n.length?n[Math.min(p,n.length-1)]:null;toast(t('ph_del'));render()},
+ // maps
+ mapSel(v){if(moved)return;const r=S.r.maps,p=PLACES.find(p=>p.id===v);r.sel=v;r.route=false;r.sheet=false;r.x=201-p.x*r.z;r.y=330-p.y*r.z;const ae=document.activeElement;if(ae)ae.blur();render();animMap()},
+ mapClose(){const r=S.r.maps;r.sel=null;r.route=false;render()},
+ mapRoute(){const r=S.r.maps,p=PLACES.find(p=>p.id===r.sel);r.route=true;r.z=Math.min(r.z,1);const cx=(p.x+ME.x)/2,cy=(p.y+ME.y)/2;r.x=201-cx*r.z;r.y=330-cy*r.z;render();animMap()},
+ mapGo(){toast(t('mp_navstart'))},
+ mapMe(){const r=S.r.maps;r.x=201-ME.x*r.z;r.y=380-ME.y*r.z;render();animMap()},
+ mapZ(v){const r=S.r.maps,f=+v,nz=Math.max(.5,Math.min(2.5,r.z*f));const cx=(201-r.x)/r.z,cy=(400-r.y)/r.z;r.z=nz;r.x=201-cx*nz;r.y=400-cy*nz;render();animMap()},
+ mapSheet(){},
+ // settings
+ sp(v){S.r.settings.stack.push(v);nav()},spBack(){S.r.settings.stack.pop();nav()},
+ tAir(){S.air=!S.air;if(S.air)toast('✈︎ '+t('airon'));render()},
+ tWifi(){if(S.air)S.air=false;S.wifi=!S.wifi;render()},tBt(){if(S.air)S.air=false;S.bt=!S.bt;render()},
+ wifiJoin(v){S.ssid=v;render()},
+ tTT(){S.truetone=!S.truetone;render()},tPct(){S.pct=!S.pct;render()},tLow(){S.lowpow=!S.lowpow;render()},tSilent(){S.silent=!S.silent;render()},
+ tNoti(v,el){const k=['line','msg','phone','ig','forum'][[...document.querySelectorAll('#app .tg')].indexOf(el)];S.noti[k]=!S.noti[k];render()},
+ setLang(v){if(S.lang===v)return;S.lang=v;document.documentElement.lang=v==='ja'?'ja':'zh-CN';document.title=v==='ja'?'iPhone 17 シミュレーター':'iPhone 17 模拟器';mapSVG=buildMap();drawAll();toast(t('st_langchg'))},
+ setDark(v){S.dark=v==='1';$('#screen').classList.toggle('dark',S.dark);render()},
+ setWall(v){S.wall=+v;$('#wall').style.background=WALLS[S.wall];$('#lock').style.background=WALLS[S.wall];toast(t('st_wallset'));render()},
+};
+function sPush(p){const r=S.r.safari;r.stack=r.stack.slice(0,r.i+1);r.stack.push(p);r.i++;r.edit=false;nav()}
+function animMap(){const g=$('#mg');if(!g)return;g.style.transition='none'}
+function startCall(who,num,line){const from=S.app;const c={who,num,from,mute:false,spk:false,kp:false,line:!!line};if(who==='shiho'){c.ai=1;c.chat={id:'call',who:'shiho',msgs:[]};ttsWarm()}S.r.phone.call=c;S.r.phone.contact=null;$('#island').classList.add('wide');
+ if(S.app!=='phone')openApp('phone');else render();if(c.ai){realCall(c);return}c.tm=setTimeout(()=>{if(S.r.phone.call===c){c.start=Date.now();if(c.ai){const g=CALL_GREET[Math.floor(Math.random()*CALL_GREET.length)];c.chat.msgs.push({me:0,tx:g[0],zh:g[1]});speak(g[0],c)}if(S.app==='phone')render()}},2200)}
+const CALL_GREET=[['……もしもし。どうしたの？','……喂。怎么了？'],['もしもし。急に電話なんて珍しいわね。','喂。突然打电话来，真少见呢。'],['……はい。今なら少し話せるわ。','……嗯。现在可以聊一会儿。']];
+
+
+
+/* ---------- translation ---------- */
+const TR_APPS=['line','msg','safari','ig','forum','maps'];
+S.trOn={};let TR={};try{TR=JSON.parse(localStorage.getItem('ip17_tr')||'{}')}catch(e){}
+function trActive(){return S.lang==='ja'&&TR_APPS.includes(S.app)&&!!S.trOn[S.app]}
+function trBtn(sz=44){if(S.lang!=='ja'||!TR_APPS.includes(S.app))return '';return `<div class="cb ${S.trOn[S.app]?'tron':''}" style="width:${sz}px;height:${sz}px;font-size:13px;font-weight:800;letter-spacing:-.5px" data-a="trToggle">文A</div>`}
+const needTr=s=>/[぀-ヿ]/.test(s)||(/[A-Za-z]{3,}/.test(s)&&!/[一-鿿]/.test(s));
+let TRQ=new Set(),trT=null,trBusy=false;
+function trv(v,zh){if(!trActive())return '';let z=null;
+ if(zh)z=zh;else if(Array.isArray(v))z=v[1];
+ else if(typeof v==='string'){if(!needTr(v))return '';z=TR[v];if(z===undefined){TRQ.add(v);clearTimeout(trT);trT=setTimeout(runTr,250);z='翻訳中…'}}
+ return z?`<div class="trn">${esc(z)}</div>`:''}
+async function getSample(){return null}
+/* ---------- ElevenLabs ---------- */
+const EL_CALL='agent_2801m6dsw0k2fba8bre7q4jhy837',EL_CHAT='agent_4301m6dt6k4ne8fa6b4zzrpr4nhb',EL_TR='agent_3301m6dt6nc8ep8854w4e4c70jgp';
+let ELC=null;
+async function getEL(){if(!ELC){const m=await import('https://cdn.jsdelivr.net/npm/@elevenlabs/client/+esm');ELC=m.Conversation}return ELC}
+async function elText(agentId,vars,text){
+ const Conversation=await getEL();
+ return await new Promise((resolve,reject)=>{let conv=null,done=false;
+  const fin=(v,err)=>{if(done)return;done=true;clearTimeout(to);try{conv&&conv.endSession()}catch(e){}err?reject(err):resolve(v)};
+  const to=setTimeout(()=>fin(null,{code:'timeout'}),60000);
+  Conversation.startSession({agentId,textOnly:true,connectionType:'websocket',overrides:{conversation:{textOnly:true}},dynamicVariables:vars,
+   onMessage:(m)=>{if(m&&m.source==='ai'&&m.message)fin(m.message)},
+   onError:(e)=>fin(null,{code:'error',message:String(e&&e.message||e)}),
+   onDisconnect:()=>{if(!done)fin(null,{code:'disconnect'})}
+  }).then(c=>{conv=c;if(done){try{c.endSession()}catch(e){}return}c.sendUserMessage(text)}).catch(e=>fin(null,{code:'start',message:String(e&&e.message||e)}));
+ })}
+async function elChatText(c,ch){
+ const ms=c.msgs.slice(-41);let k=ms.length;while(k>0&&ms[k-1].me)k--;
+ const pending=ms.slice(k).map(m=>String(x(m.tx))).join('\n');
+ const hist=ms.slice(0,k).map(m=>(m.me?'她：':'我：')+String(x(m.tx))).join('\n')||'（无）';
+ return await elText(EL_CHAT,{channel:CH[ch],user_name:S.lineName||'',history:hist,now:new Date().toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})},pending||'……');
+}
+async function trOne(m){try{const t=await elText(EL_TR,{},JSON.stringify([String(m.tx)]));const a=JSON.parse(t.slice(t.indexOf('['),t.lastIndexOf(']')+1));if(a[0]&&!m.zh){m.zh=a[0];if(S.app==='phone')render()}}catch(e){}}
+async function realCall(c){
+ try{
+  const Conversation=await getEL();
+  const lc=LINE.chats.find(z=>z.id==='shiho');const rc=lc?lc.msgs.slice(-12).map(m=>(m.me?'她：':'我：')+String(x(m.tx))).join('\n'):'';
+  let pendZh=null;
+  const conv=await Conversation.startSession({agentId:EL_CALL,connectionType:'websocket',dynamicVariables:{user_name:S.lineName||'',recent_chat:rc||'（无）'},
+   clientTools:{show_translation:(p)=>{const last=[...c.chat.msgs].reverse().find(m=>!m.me);if(p&&last&&!last.zh&&last.tx===p.ja){last.zh=p.zh;render()}else pendZh=p&&p.zh||null;return 'ok'}},
+   onConnect:()=>{if(S.r.phone.call===c){c.start=Date.now();render()}},
+   onMessage:({message,source})=>{if(S.r.phone.call!==c||!message)return;
+    if(source==='user')c.chat.msgs.push({me:1,tx:message});
+    else{const g=CALL_GREET.find(z=>z[0]===message);const m={me:0,tx:message,zh:pendZh||(g?g[1]:'')};pendZh=null;c.chat.msgs.push(m);if(!m.zh)setTimeout(()=>{if(!m.zh)trOne(m)},1500)}
+    render()},
+   onModeChange:({mode})=>{c.speaking=mode==='speaking';if(S.r.phone.call===c&&S.app==='phone')render()},
+   onDisconnect:()=>{if(S.r.phone.call===c&&c.conv){c.conv=null;A.hang(true)}},
+   onError:(e)=>{console.warn(e)}
+  });
+  if(S.r.phone.call!==c){try{conv.endSession()}catch(e){}return}
+  c.conv=conv;c.real=1;if(!c.start){c.start=Date.now()}render();
+ }catch(e){console.warn(e);if(S.r.phone.call!==c)return;
+  toast(li()?'无法连接实时通话（请允许麦克风）':'リアル通話に接続できません（マイクを許可）');
+  c.start=Date.now();const g=CALL_GREET[0];c.chat.msgs.push({me:0,tx:g[0],zh:g[1]});speak(g[0],c);render()}
+}
+async function runTr(){if(trBusy||!TRQ.size)return;trBusy=true;const list=[...TRQ].slice(0,20);list.forEach(s=>TRQ.delete(s));
+ try{const r={text:await elText(EL_TR,{},JSON.stringify(list))};
+  const t0=r.text,a=t0.indexOf('['),b=t0.lastIndexOf(']');const arr=JSON.parse(t0.slice(a,b+1));list.forEach((s,i)=>TR[s]=arr[i]||'')}
+ catch(e){list.forEach(s=>TR[s]='（翻訳できませんでした）');setTimeout(()=>{list.forEach(s=>{if(TR[s]==='（翻訳できませんでした）')delete TR[s]})},15000)}
+ try{localStorage.setItem('ip17_tr',JSON.stringify(TR))}catch(e){}
+ trBusy=false;if(trActive())render();if(TRQ.size)runTr()}
+
+/* ---------- AI chat (Shiho) ---------- */
+let SAMPLE=null,aiWarned=0;
+getSample();
+const FALLBACK=[['……そう。','……是吗。','...I see.'],['あなたって、本当に変わらないわね。','你还真是一点都没变呢。',"You really haven't changed."],['今ちょっと手が離せないの。あとで返すわ。','我现在有点走不开，晚点回你。',"I'm a bit busy right now. I'll reply later."],['別に。気にしてないわ。','没什么。我不在意。',"It's nothing. I don't mind."]];
+const aiT={},aiB={};S.r.call={};
+const CH={call:'电话语音通话（你说的话会被朗读出来，所以要像打电话一样口语、简短，每条不超过30字，不要表情符号和括号）',line:'LINE',msg:'iPhone 短信（iMessage/SMS）',ig:'Instagram 私信（DM）'};
+function aiView(ch,cid){if(ch==='call'){const k=S.r.phone.call;return S.app==='phone'&&!!k&&!!k.ai&&k.chat.id===cid}return ch==='line'?S.app==='line'&&S.r.line.chat===cid:ch==='msg'?S.app==='msg'&&S.r.msg.chat===cid:S.app==='ig'&&S.r.ig.dm===cid}
+function aiQueue(c,ch='line'){clearTimeout(aiT[ch]);aiT[ch]=setTimeout(()=>aiReply(c,ch),1600)}
+const isEn=s=>/[A-Za-z]/.test(s)&&!/[぀-ヿ一-鿿]/.test(s);
+async function aiReply(c,ch='line'){
+ if(aiB[ch]){aiQueue(c,ch);return}aiB[ch]=true;const cid=c.id,st=S.r[ch];
+ c.msgs.forEach(m=>{if(m.me)m.read=1});if(aiView(ch,cid)){st.typing=true;render()}
+ let out=null;
+ try{
+  let r={text:await elChatText(c,ch)};
+  let txt=(r&&r.text||'').trim();const a=txt.indexOf('{'),b=txt.lastIndexOf('}');
+  try{out=JSON.parse(txt.slice(a,b+1)).messages}catch(e){out=txt.split(/\n+/).filter(Boolean).slice(0,3)}
+  out=(out||[]).map(s=>typeof s==='string'?{text:s.trim()}:{text:String(s.text||'').trim(),zh:s.zh?String(s.zh).trim():''}).filter(o=>o.text).slice(0,4);if(!out.length)throw {code:'empty'};
+ }catch(e){const lm=[...c.msgs].reverse().find(m=>m.me);const en=lm&&isEn(String(x(lm.tx)));const f=FALLBACK[Math.floor(Math.random()*FALLBACK.length)];out=[{text:en?f[2]:f[0],zh:f[1]}];if(e&&e.code==='none'&&!aiWarned){aiWarned=1;toast(t('l_noai'))}if(e&&e.code&&e.code!=='none'&&e.code!=='empty'){console.warn(e);toast(t('l_err'))}}
+ for(let k=0;k<out.length;k++){
+  if(ch==='call'){const k2=S.r.phone.call;if(!k2||k2.chat!==c)break;st.typing=false;c.msgs.push({me:0,tx:out[k].text,zh:out[k].zh||''});render();await speak(out[k].text,k2);continue}
+  if(k)await new Promise(r=>setTimeout(r,700+out[k].text.length*40));
+  c.msgs.forEach(m=>m.nw=0);c.msgs.push({me:0,tx:out[k].text,zh:out[k].zh||'',t:hm(),nw:1});
+  if(k===out.length-1)st.typing=false;
+  saveLine();if(aiView(ch,cid))render();else{c.unread=(c.unread||0)+1;drawHome();if(S.locked)drawLock()}
+ }
+ st.typing=false;aiB[ch]=false;if(aiView(ch,cid))render();
+}
+
+
+/* ---------- TTS ---------- */
+let JAV=null;
+function pickVoice(lang){try{const vs=speechSynthesis.getVoices();const pref=lang==='en'?['Samantha','Google US English','Aria','Jenny']:['Kyoko','O-Ren','Nanami','Haruka','Google 日本語','Ayumi','Mizuki'];
+ const L=vs.filter(v=>v.lang&&v.lang.toLowerCase().startsWith(lang==='en'?'en':'ja'));for(const n of pref){const v=L.find(v=>v.name.includes(n));if(v)return v}return L[0]||null}catch(e){return null}}
+function ttsWarm(){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}}
+function speak(text,call){return new Promise(res=>{try{
+ if(call&&call.mute){res();return}
+ const en=isEn(text),u=new SpeechSynthesisUtterance(text.replace(/[（(][^）)]*[）)]/g,''));u.lang=en?'en-US':'ja-JP';const v=pickVoice(en?'en':'ja');if(v)u.voice=v;u.rate=0.97;u.pitch=1.0;
+ const done=()=>{if(call){call.speaking=false;if(S.app==='phone')render()}res()};u.onend=done;u.onerror=done;
+ if(call){call.speaking=true;if(S.app==='phone')render()}
+ speechSynthesis.speak(u);setTimeout(done,Math.max(4000,text.length*350))
+ }catch(e){res()}})}
+try{speechSynthesis.onvoiceschanged=()=>{}}catch(e){}
+
+/* ---------- navigation ---------- */
+function openApp(id){
+ const a=$('#app');if(S.locked)unlock();
+ const same=S.app===id&&a.classList.contains('show');S.app=id;
+ if(id==='maps'&&!mapSVG)mapSVG=buildMap();
+ render(false);
+ if(!same){a.classList.add('show','zoom');$('#home').classList.add('dim');requestAnimationFrame(()=>requestAnimationFrame(()=>a.classList.remove('zoom')))}
+ drawSB();
+}
+function goHome(){
+ if(S.locked){unlock();return}
+ if(!S.app)return;
+ if(S.app==='phone'&&S.r.phone.call){/* keep call in island */}
+ const a=$('#app');a.classList.add('zoom');$('#home').classList.remove('dim');S.app=null;
+ setTimeout(()=>{if(!S.app){a.classList.remove('show');a.innerHTML=''}},380);
+ const ae=document.activeElement;if(ae&&ae.blur)ae.blur();
+ drawHome();drawSB();
+}
+function unlock(){S.locked=false;$('#lock').style.transform='';$('#lock').classList.add('gone');setTimeout(()=>{if(!S.locked)$('#lock').style.visibility='hidden'},450);drawHome();drawSB()}
+function lock(){S.locked=true;const a=$('#app');a.classList.remove('show','zoom');a.innerHTML='';S.app=null;$('#home').classList.remove('dim');const l=$('#lock');l.style.visibility='';l.style.transition='none';l.classList.remove('gone');l.offsetHeight;l.style.transition='';drawLock();drawSB()}
+function drawAll(){drawLock();drawHome();if(S.app)render();drawSB()}
+
+/* ---------- events ---------- */
+const scr=$('#screen');
+let lastTap={t:0,el:null};
+document.addEventListener('click',e=>{
+ const el=e.target.closest('[data-a]');
+ const dbl=e.target.closest('[data-dbl]');
+ if(dbl){const now=Date.now();if(lastTap.el===dbl&&now-lastTap.t<320){A[dbl.dataset.dbl](dbl.dataset.v,dbl,true);lastTap={t:0,el:null};return}lastTap={t:now,el:dbl}}
+ if(!el)return;if(el.tagName==='INPUT')return;
+ const f=A[el.dataset.a];if(f){e.stopPropagation();f(el.dataset.v,el)}
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.enter){e.preventDefault();A[e.target.dataset.enter]()}
+ if(e.key==='Escape'){goHome()}
+});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.input;if(k){S[k]=+e.target.value;if(k==='bright')scr.style.filter=`brightness(${.55+S.bright/220})`}});
+// home bar: click or swipe up
+let hb=null;
+$('#hbar').addEventListener('pointerdown',e=>{hb={y:e.clientY}});
+$('#hbar').addEventListener('click',()=>goHome());
+// lock swipe
+let lk=null;
+$('#lock').addEventListener('pointerdown',e=>{if(e.target.closest('[data-a]'))return;lk={y:e.clientY};$('#lock').style.transition='none'});
+window.addEventListener('pointermove',e=>{if(!lk)return;const dy=Math.min(0,(e.clientY-lk.y)/SCALE);$('#lock').style.transform=`translateY(${dy}px)`});
+window.addEventListener('pointerup',e=>{if(!lk)return;const dy=(e.clientY-lk.y)/SCALE;lk=null;const l=$('#lock');l.style.transition='';if(dy<-110)unlock();else l.style.transform=''});
+// swipe up from app bottom area also goes home
+let ab=null;
+scr.addEventListener('pointerdown',e=>{const rc=scr.getBoundingClientRect();if((rc.bottom-e.clientY)/SCALE<40&&!S.locked)ab={y:e.clientY}});
+window.addEventListener('pointerup',e=>{if(ab){if((ab.y-e.clientY)/SCALE>50)goHome();ab=null}});
+
+/* ---------- scale ---------- */
+function fit(){const s=Math.min((innerWidth-16)/430,(innerHeight-16)/902,1.15);SCALE=s;$('#phone').style.transform=`scale(${s})`}
+addEventListener('resize',fit);fit();
+
+/* ---------- clock tick ---------- */
+setInterval(()=>{drawSB();const lt=$('#lock .ltime');if(lt)lt.textContent=hm();const ct=$('#app .calltime');const c=S.r.phone.call;if(ct&&c&&c.start){const el=Math.floor((Date.now()-c.start)/1000);ct.textContent=Math.floor(el/60)+':'+pad(el%60)}},1000);
+
+$('#wall').style.background=WALLS[S.wall];$('#lock').style.background=WALLS[S.wall];
+drawAll();
+</script>
+</body></html>
